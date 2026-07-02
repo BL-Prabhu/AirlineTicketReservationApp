@@ -4,7 +4,8 @@ import util.ScannerHelper;
 
 public class StaffMenu {
 
-    public static void showMenu() {
+    public static void showMenu()
+    {
         boolean logout = false;
         while (!logout) {
             System.out.println("\n------- AIRLINE STAFF MENU -------");
