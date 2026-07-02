@@ -2,7 +2,8 @@ package model;
 
 import java.time.LocalDateTime;
 
-public class Flight {
+public class Flight
+{
 
     private String flightNumber;
     private String airline;
