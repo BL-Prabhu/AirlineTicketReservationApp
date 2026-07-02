@@ -5,7 +5,6 @@ import util.ScannerHelper;
 
 public class AirlineTicketReservationApp
 {
-
     private static final int ROLE_PASSENGER = 1;
     private static final int ROLE_ADMIN = 2;
     private static final int ROLE_STAFF = 3;

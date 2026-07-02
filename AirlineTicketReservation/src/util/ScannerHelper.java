@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class ScannerHelper
 {
-
     private static final Scanner scanner = new Scanner(System.in);
 
     public static int readInt(String prompt) {

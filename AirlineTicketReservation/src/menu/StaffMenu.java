@@ -2,7 +2,8 @@ package menu;
 
 import util.ScannerHelper;
 
-public class StaffMenu {
+public class StaffMenu
+{
 
     public static void showMenu()
     {

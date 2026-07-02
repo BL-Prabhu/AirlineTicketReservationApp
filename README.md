@@ -1,94 +1,93 @@
 # ✈️ Airline Ticket Reservation System
 
-## 📘 Use Case 2: Flight Search and Discovery
+## 📘 Use Case 3: Seat Selection
 
 ---
 
 ## 📌 Overview
 
-The Flight Search and Discovery module allows users to search, filter, and explore available flights based on various criteria such as source, destination, date, price, and airline preferences. It enhances user experience by providing flexible search options and advanced data analysis using Java Streams.
+The Seat Selection module enables passengers to view seat layouts and select preferred seats during the booking process. It provides real-time seat availability, pricing for premium seats, and automated seat assignment options.
 
 ---
 
 ## 🎯 Objectives
 
-* Enable users to search flights easily
-* Provide multiple filtering and sorting options
-* Display detailed flight information
-* Use Java Streams for advanced operations
+* Provide seat map visualization
+* Allow users to select preferred seats
+* Handle premium seat pricing
+* Ensure seat availability validation
+* Support auto seat assignment
 
 ---
 
-## 🔍 2.1 Flight Search Operations
+## 🪑 3.1 Seat Map Visualization
 
-* Search flights by source and destination
-* Filter flights by departure date
-* Support one-way and round-trip search (extendable)
-* Apply filters:
+* Display seat layout based on aircraft
+* Show seat availability:
 
-  * Price range
-  * Stops (non-stop, 1 stop, etc.)
-  * Airline preference
-* Sort results:
+  * 🟢 Available
+  * 🔴 Booked
+  * ⚪ Blocked
+* Identify seat types:
 
-  * Price (low to high)
-  * Duration (shortest first)
-
----
-
-## 📊 2.2 Flight Information Display
-
-* Show list of available flights
-* Display:
-
-  * Airline name
-  * Flight number
-  * Departure and arrival time
-  * Duration
-  * Price
-  * Number of stops
-  * Available seats
+  * Window
+  * Middle
+  * Aisle
+* Highlight premium seats with extra charges
 
 ---
 
-## ⚙️ 2.3 Advanced Features (Java Streams)
+## 🎯 3.2 Seat Selection and Assignment
 
-* Group flights by airline
-* Calculate average fare per airline
-* Find cheapest flight using `min()`
-* Aggregate total available seats
-* Enable scalable filtering and grouping
+* Allow passenger to select seats
+* Validate seat availability before booking
+* Apply additional charges for premium seats
+* Enable seat selection for multiple passengers
+* Auto-assign seats if not selected
+* Support group seat allocation (extendable)
+
+---
+
+## ⚙️ Features Implemented
+
+✔ Seat map generation
+✔ Seat availability tracking
+✔ Seat booking
+✔ Premium seat handling
+✔ Auto seat assignment
 
 ---
 
 ## 🏗️ Design Approach
 
-* Layered architecture:
+* Model:
 
-  * Model (Flight)
-  * Repository (Data source)
-  * Service (Business logic)
-  * Menu (User interaction)
-* Use Java Streams for clean and efficient data processing
-* Follow OOP principles
+  * Seat
+  * SeatMap
+* Service:
 
----
+  * SeatService (business logic)
+* Menu:
 
-## ✅ Features Implemented
-
-✔ Flight search (source, destination, date)
-✔ Filtering (price, stops)
-✔ Sorting (price, duration)
-✔ Grouping using Streams
-✔ Aggregation and analytics
+  * Integrated into Passenger Menu
+* Use OOP principles and clean structure
 
 ---
 
 ## 📚 Learning Outcomes
 
-* Hands-on experience with Java Streams API
-* Understanding filtering, sorting, grouping
-* Designing modular and scalable systems
-* Implementing real-world search systems
+* Designing seat allocation systems
+* Handling real-time availability
+* Applying OOP concepts (encapsulation, enums)
+* Implementing business rules (premium pricing, validation)
+
+---
+
+## 🚀 Future Enhancements
+
+* Graphical seat map UI
+* Group seat booking logic
+* Seat blocking for companions
+* Integration with booking and payment modules
 
 ---
