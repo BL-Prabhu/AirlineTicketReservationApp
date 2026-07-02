@@ -1,93 +1,113 @@
 # ✈️ Airline Ticket Reservation System
 
-## 📘 Use Case 3: Seat Selection
+## 📘 Use Case 4: Booking Management
 
 ---
 
 ## 📌 Overview
 
-The Seat Selection module enables passengers to view seat layouts and select preferred seats during the booking process. It provides real-time seat availability, pricing for premium seats, and automated seat assignment options.
+The Booking Management module handles the complete flight booking lifecycle from initiation to confirmation. It uses the State Pattern to manage booking stages and ensures a structured and validated booking process.
 
 ---
 
 ## 🎯 Objectives
 
-* Provide seat map visualization
-* Allow users to select preferred seats
-* Handle premium seat pricing
-* Ensure seat availability validation
-* Support auto seat assignment
+* Manage booking lifecycle using State Pattern
+* Capture passenger and seat details
+* Calculate fare with taxes and seat charges
+* Generate unique PNR
+* Confirm booking after payment
 
 ---
 
-## 🪑 3.1 Seat Map Visualization
+## 🔄 4.1 Booking Creation (State Pattern)
 
-* Display seat layout based on aircraft
-* Show seat availability:
+Booking progresses through states:
+INITIATED → PASSENGER_DETAILS → SEAT_SELECTED → PAYMENT_PENDING → CONFIRMED
 
-  * 🟢 Available
-  * 🔴 Booked
-  * ⚪ Blocked
-* Identify seat types:
-
-  * Window
-  * Middle
-  * Aisle
-* Highlight premium seats with extra charges
+* Each state transition is validated
+* Booking expiry time is set
+* Seats are locked during process
 
 ---
 
-## 🎯 3.2 Seat Selection and Assignment
+## 👤 4.2 Passenger Management
 
-* Allow passenger to select seats
-* Validate seat availability before booking
-* Apply additional charges for premium seats
-* Enable seat selection for multiple passengers
-* Auto-assign seats if not selected
-* Support group seat allocation (extendable)
+* Add passenger details
+* Validate required fields
+* Support multiple passengers
+* Store contact details
 
 ---
 
-## ⚙️ Features Implemented
+## ✅ 4.3 Booking Confirmation
 
-✔ Seat map generation
-✔ Seat availability tracking
-✔ Seat booking
-✔ Premium seat handling
-✔ Auto seat assignment
+* Booking moves to CONFIRMED after payment
+* Generates PNR
+* Calculates total fare (base + tax + seat charges)
+* Stores booking in memory
+
+---
+
+## 🔍 4.4 Booking Retrieval
+
+* Retrieve booking by PNR
+* Display booking details:
+
+  * Flight info
+  * Passenger list
+  * Seat details
+  * Fare
+  * Status
+
+---
+
+## 📊 4.5 Booking History
+
+* View all bookings
+* Track booking status
+* Extendable for filtering and sorting
 
 ---
 
 ## 🏗️ Design Approach
 
-* Model:
+* State Pattern for lifecycle management
+* Layered architecture:
 
-  * Seat
-  * SeatMap
-* Service:
+  * Model
+  * Service
+  * State
+* Clean and modular design
 
-  * SeatService (business logic)
-* Menu:
+---
 
-  * Integrated into Passenger Menu
-* Use OOP principles and clean structure
+## ✅ Features Implemented
+
+✔ Booking lifecycle (State Pattern)
+✔ Passenger addition
+✔ Seat selection integration
+✔ Fare calculation
+✔ Booking confirmation
+✔ Booking retrieval
 
 ---
 
 ## 📚 Learning Outcomes
 
-* Designing seat allocation systems
-* Handling real-time availability
-* Applying OOP concepts (encapsulation, enums)
-* Implementing business rules (premium pricing, validation)
+* Understanding State Design Pattern
+* Managing real-world booking flows
+* Designing scalable systems
+* Integrating multiple modules
 
 ---
 
 ## 🚀 Future Enhancements
 
-* Graphical seat map UI
-* Group seat booking logic
-* Seat blocking for companions
-* Integration with booking and payment modules
+* Payment gateway integration
+* Email/SMS notifications
+* Database persistence
+* PDF ticket generation
+* Booking cancellation & modification
 
 ---

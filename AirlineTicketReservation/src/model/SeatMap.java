@@ -11,6 +11,7 @@ public class SeatMap {
         generateSeats();
     }
 
+
     private void generateSeats() {
 
         for (int row = 1; row <= 5; row++) {

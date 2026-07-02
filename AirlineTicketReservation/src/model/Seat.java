@@ -20,6 +20,7 @@ public class Seat
         this.status = SeatStatus.AVAILABLE;
     }
 
+
     public String getSeatNumber() { return seatNumber; }
     public SeatType getType() { return type; }
     public SeatStatus getStatus() { return status; }

@@ -28,6 +28,7 @@ public class StaffMenu
                 default:
                     System.out.println("Invalid Choice.");
             }
+
         }
     }
 }

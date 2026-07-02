@@ -5,7 +5,8 @@ import util.ScannerHelper;
 
 public class AdminMenu
 {
-    public static void showMenu() {
+    public static void showMenu()
+    {
         boolean logout = false;
         while (!logout) {
             System.out.println("\n----------- ADMIN MENU -----------");
