@@ -7,7 +7,8 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class FlightService {
+public class FlightService
+{
 
     private final FlightRepository repository = new FlightRepository();
 
