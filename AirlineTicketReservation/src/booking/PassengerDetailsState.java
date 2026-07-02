@@ -1,9 +1,20 @@
 package booking;
 
-
 public class PassengerDetailsState implements BookingState {
+
+    @Override
     public void next(Booking booking) {
-        booking.setState(new SeatSelectedState());
+        booking.setState(new PaymentPendingState());
     }
-    public String getStatus() { return "PASSENGER_DETAILS"; }
+
+    @Override
+    public void handle() {
+        System.out.println("Booking State: PASSENGER_DETAILS");
+    }
+
+    @Override
+    public String getStatus() {
+        return "PASSENGER_DETAILS";
+    }
 }
+
