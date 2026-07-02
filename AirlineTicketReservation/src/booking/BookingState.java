@@ -1,7 +1,11 @@
 package booking;
 
 
-public interface BookingState {
+public interface BookingState
+{
     void next(Booking booking);
+
+    void handle();
+
     String getStatus();
 }
