@@ -11,6 +11,7 @@ public class FlightService
 {
     private final FlightRepository repository = new FlightRepository();
 
+
     // 🔍 Search Flights
     public List<Flight> search(String source, String destination, LocalDate date) {
         return repository.getFlights().stream()
