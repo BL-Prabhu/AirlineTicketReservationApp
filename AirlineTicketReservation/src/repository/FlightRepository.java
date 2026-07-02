@@ -17,6 +17,7 @@ public class FlightRepository
                 LocalDateTime.now().plusHours(5),
                 5000, 0, 50));
 
+
         flights.add(new Flight("6E202", "IndiGo", "Chennai", "Delhi",
                 LocalDateTime.now().plusHours(3),
                 LocalDateTime.now().plusHours(6),
