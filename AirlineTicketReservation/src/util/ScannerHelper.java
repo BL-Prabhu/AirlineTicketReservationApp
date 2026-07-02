@@ -2,7 +2,8 @@ package util;
 
 import java.util.Scanner;
 
-public class ScannerHelper {
+public class ScannerHelper
+{
 
     private static final Scanner scanner = new Scanner(System.in);
 
