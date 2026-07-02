@@ -1,43 +1,45 @@
 package service;
 
+
 import booking.Booking;
+import booking.ConfirmedState;
+import booking.PaymentPendingState;
 import model.Flight;
 import model.Seat;
-
-import java.util.*;
+import payment.Payment;
 
 public class BookingService {
 
-    private Map<String, Booking> bookings = new HashMap<>();
+    private PaymentService paymentService = new PaymentService();
 
     public Booking createBooking(Flight flight) {
         Booking booking = new Booking(flight);
-        bookings.put(booking.getPnr(), booking);
+        booking.setState(new PaymentPendingState());
         return booking;
     }
 
     public void addPassenger(Booking booking, String name) {
         booking.addPassenger(name);
-        booking.nextState();
     }
 
     public void selectSeat(Booking booking, Seat seat) {
-        booking.addSeat(seat);
-        booking.nextState();
+        booking.setSeat(seat);
     }
 
-    public void payment(Booking booking, double baseFare) {
-        booking.calculateFare(baseFare);
-        booking.nextState();
-        booking.nextState(); // move to CONFIRMED
-        System.out.println("Payment Successful!");
-    }
+    // 🔗 Payment Integration
+    public void makePayment(Booking booking, Payment payment, double amount) {
 
-    public Booking getBooking(String pnr) {
-        return bookings.get(pnr);
-    }
+        System.out.println("\n--- Processing Payment ---");
 
-    public void showAllBookings() {
-        bookings.values().forEach(Booking::display);
+        boolean success = paymentService.processPayment(payment, amount);
+
+        if (success) {
+            booking.setState(new ConfirmedState());
+            booking.setPaymentStatus("SUCCESS");
+            System.out.println("Booking Confirmed ✅");
+        } else {
+            booking.setPaymentStatus("FAILED");
+            System.out.println("Payment Failed ❌");
+        }
     }
 }
