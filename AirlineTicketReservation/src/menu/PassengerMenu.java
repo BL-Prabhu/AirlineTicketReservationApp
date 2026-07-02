@@ -1,6 +1,9 @@
 package menu;
 
+import booking.Booking;
 import model.Flight;
+import model.Seat;
+import service.BookingService;
 import service.FlightService;
 import service.SeatService;
 import util.ScannerHelper;
@@ -17,6 +20,7 @@ public class PassengerMenu {
 
         FlightService flightService = new FlightService();
         SeatService seatService = new SeatService();
+        BookingService bookingService = new BookingService();
 
         boolean logout = false;
 
@@ -25,7 +29,8 @@ public class PassengerMenu {
             System.out.println("\n--------- PASSENGER MENU ---------");
             System.out.println("1. Search Flights");
             System.out.println("2. Select Seat");
-            System.out.println("3. Logout");
+            System.out.println("3. Book Ticket");
+            System.out.println("4. Logout");
 
             int choice = ScannerHelper.readInt("Enter your choice : ");
 
@@ -39,14 +44,14 @@ public class PassengerMenu {
                     System.out.print("Enter Destination: ");
                     String destination = scanner.nextLine();
 
-                    List<Flight> flights =
+                    List<Flight> searchResults =
                             flightService.search(source, destination, LocalDate.now());
 
-                    if (flights.isEmpty()) {
+                    if (searchResults.isEmpty()) {
                         System.out.println("No flights found.");
                     } else {
                         System.out.println("\nAvailable Flights:");
-                        flights.forEach(System.out::println);
+                        searchResults.forEach(System.out::println);
                     }
                     break;
 
@@ -55,17 +60,54 @@ public class PassengerMenu {
                     seatService.displaySeats();
 
                     System.out.print("Enter seat number: ");
-                    String seatNo = scanner.nextLine();
+                    String seatNumber = scanner.nextLine();
 
-                    boolean success = seatService.selectSeat(seatNo);
+                    boolean success = seatService.selectSeat(seatNumber);
 
                     if (!success) {
                         System.out.println("Please try again.");
                     }
                     break;
 
-                // 🚪 Logout
+                // 🎟️ UC4 - Booking
                 case 3:
+
+                    List<Flight> availableFlights =
+                            flightService.search("Chennai", "Delhi", LocalDate.now());
+
+                    if (availableFlights.isEmpty()) {
+                        System.out.println("No flights available.");
+                        break;
+                    }
+
+                    Flight selectedFlight = availableFlights.get(0);
+
+                    Booking booking = bookingService.createBooking(selectedFlight);
+
+                    System.out.println("Booking Created. PNR: " + booking.getPnr());
+
+                    // 👤 Add Passenger
+                    System.out.print("Enter Passenger Name: ");
+                    String name = scanner.nextLine();
+                    bookingService.addPassenger(booking, name);
+
+                    // 🪑 Seat Selection
+                    seatService.displaySeats();
+
+                    System.out.print("Select Seat: ");
+                    String selectedSeatNo = scanner.nextLine();
+
+                    Seat seat = seatService.autoAssign(); // simplified logic
+                    bookingService.selectSeat(booking, seat);
+
+                    // 💳 Payment
+                    bookingService.payment(booking, selectedFlight.getPrice());
+
+                    booking.display();
+                    break;
+
+                // 🚪 Logout
+                case 4:
                     System.out.println("Logging out from Passenger...");
                     logout = true;
                     break;
