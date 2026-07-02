@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 public class FlightService
 {
-
     private final FlightRepository repository = new FlightRepository();
 
     // 🔍 Search Flights
