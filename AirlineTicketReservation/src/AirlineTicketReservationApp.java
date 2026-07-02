@@ -10,6 +10,7 @@ public class AirlineTicketReservationApp
     private static final int ROLE_STAFF = 3;
     private static final int EXIT = 4;
 
+
     public static void main(String[] args) {
         boolean exitSystem = false;
         while (!exitSystem) {
