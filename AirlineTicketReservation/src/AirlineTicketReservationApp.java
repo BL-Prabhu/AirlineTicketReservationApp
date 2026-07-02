@@ -3,7 +3,8 @@ import menu.PassengerMenu;
 import menu.StaffMenu;
 import util.ScannerHelper;
 
-public class AirlineTicketReservationApp {
+public class AirlineTicketReservationApp
+{
 
     private static final int ROLE_PASSENGER = 1;
     private static final int ROLE_ADMIN = 2;
