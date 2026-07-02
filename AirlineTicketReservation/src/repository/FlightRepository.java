@@ -8,7 +8,6 @@ import java.util.List;
 
 public class FlightRepository
 {
-
     public List<Flight> getFlights() {
 
         List<Flight> flights = new ArrayList<>();
