@@ -2,8 +2,6 @@ package service;
 
 import model.Seat;
 import model.SeatMap;
-
-import java.util.List;
 import java.util.Optional;
 
 public class SeatService {
