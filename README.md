@@ -1,104 +1,94 @@
 # ✈️ Airline Ticket Reservation System
 
-## 📘 Use Case 1: User Management
+## 📘 Use Case 2: Flight Search and Discovery
 
 ---
 
 ## 📌 Overview
 
-The User Management module is a core component of the Airline Ticket Reservation System. It handles user registration, authentication, profile management, and role-based access control. This ensures secure and personalized access for passengers, administrators, and airline staff.
+The Flight Search and Discovery module allows users to search, filter, and explore available flights based on various criteria such as source, destination, date, price, and airline preferences. It enhances user experience by providing flexible search options and advanced data analysis using Java Streams.
 
 ---
 
 ## 🎯 Objectives
 
-* Enable secure user registration and login
-* Manage user profiles and personal data
-* Implement role-based access control
-* Provide account security features like OTP verification and password reset
+* Enable users to search flights easily
+* Provide multiple filtering and sorting options
+* Display detailed flight information
+* Use Java Streams for advanced operations
 
 ---
 
-## 🧩 Functional Requirements
+## 🔍 2.1 Flight Search Operations
 
-### 🔹 1.1 User Registration and Authentication
+* Search flights by source and destination
+* Filter flights by departure date
+* Support one-way and round-trip search (extendable)
+* Apply filters:
 
-* Register new users with personal details (Name, Email, Phone, DOB, Passport/ID)
-* Verify email and mobile number using OTP
-* Store encrypted passwords for security
-* Implement role-based access (Passenger, Admin, Airline Staff)
-* User login with session management
-* "Remember Me" functionality for persistent login
-* Password reset via Email/SMS
-* Multi-Factor Authentication (MFA) for enhanced security
-* Update user profile details
-* Deactivate or delete user accounts
+  * Price range
+  * Stops (non-stop, 1 stop, etc.)
+  * Airline preference
+* Sort results:
 
----
-
-### 🔹 1.2 User Profile Management
-
-* View complete user profile including booking history
-* Update personal and contact information
-* Add or update passport and identification details
-* Manage multiple passenger profiles (family members or frequent travelers)
-* Set travel preferences (meal type, seat preference, assistance needs)
-* Manage notification preferences (Email/SMS)
-* Add emergency contact details
+  * Price (low to high)
+  * Duration (shortest first)
 
 ---
 
-### 🔹 1.3 User Role Management (Polymorphism & Inheritance)
+## 📊 2.2 Flight Information Display
 
-* Create an abstract `User` class with common attributes
-* Implement derived classes:
+* Show list of available flights
+* Display:
 
-    * `Passenger`
-    * `Admin`
-    * `AirlineStaff`
-* Apply inheritance and polymorphism for role behavior
-* Define role-based permissions:
-
-    * **Passenger:** Manage own bookings
-    * **Admin:** Manage users and bookings
-    * **Airline Staff:** Manage flights and view bookings
-* Restrict access to features based on user roles
+  * Airline name
+  * Flight number
+  * Departure and arrival time
+  * Duration
+  * Price
+  * Number of stops
+  * Available seats
 
 ---
 
-## 🔐 Security Features
+## ⚙️ 2.3 Advanced Features (Java Streams)
 
-* Password encryption (e.g., BCrypt)
-* OTP verification for email and mobile
-* Multi-factor authentication (MFA)
-* Secure session handling
-* Role-based authorization
+* Group flights by airline
+* Calculate average fare per airline
+* Find cheapest flight using `min()`
+* Aggregate total available seats
+* Enable scalable filtering and grouping
 
 ---
 
 ## 🏗️ Design Approach
 
-* Object-Oriented Programming (OOP) principles
-* Use of inheritance and polymorphism for role management
-* Separation of concerns using layered architecture (Controller, Service, Repository)
-* Validation and exception handling for user inputs
+* Layered architecture:
+
+  * Model (Flight)
+  * Repository (Data source)
+  * Service (Business logic)
+  * Menu (User interaction)
+* Use Java Streams for clean and efficient data processing
+* Follow OOP principles
 
 ---
 
-## 📊 Expected Outcome
+## ✅ Features Implemented
 
-* Secure and scalable user management system
-* Personalized user experience
-* Controlled access to system functionalities
-* Improved data security and integrity
+✔ Flight search (source, destination, date)
+✔ Filtering (price, stops)
+✔ Sorting (price, duration)
+✔ Grouping using Streams
+✔ Aggregation and analytics
 
 ---
 
 ## 📚 Learning Outcomes
 
-* Understanding authentication and authorization mechanisms
-* Implementing role-based access control (RBAC)
-* Applying OOP concepts like inheritance and polymorphism
-* Handling user data securely with encryption and validation
+* Hands-on experience with Java Streams API
+* Understanding filtering, sorting, grouping
+* Designing modular and scalable systems
+* Implementing real-world search systems
 
 ---
