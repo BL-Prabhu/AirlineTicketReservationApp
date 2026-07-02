@@ -14,6 +14,7 @@ public class Flight
     private int stops;
     private int seats;
 
+
     public Flight(String flightNumber, String airline, String source, String destination,
                   LocalDateTime departureTime, LocalDateTime arrivalTime,
                   double price, int stops, int seats) {
