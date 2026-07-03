@@ -1,45 +1,49 @@
-import menu.AdminMenu;
-import menu.PassengerMenu;
-import menu.StaffMenu;
-import util.ScannerHelper;
 
-public class AirlineTicketReservationApp
-{
-    private static final int ROLE_PASSENGER = 1;
-    private static final int ROLE_ADMIN = 2;
-    private static final int ROLE_STAFF = 3;
-    private static final int EXIT = 4;
+import booking.Booking;
+import model.*;
+import service.*;
 
+import java.time.LocalDateTime;
+
+public class AirlineTicketReservationApp {
 
     public static void main(String[] args) {
-        boolean exitSystem = false;
-        while (!exitSystem) {
-            System.out.println("\n==============================================");
-            System.out.println(" AIRLINE TICKET RESERVATION SYSTEM ");
-            System.out.println("==============================================");
-            System.out.println("1. Passenger");
-            System.out.println("2. Admin");
-            System.out.println("3. Airline Staff");
-            System.out.println("4. Exit");
-            int choice = ScannerHelper.readInt("Enter your choice : ");
-            switch (choice) {
-                case ROLE_PASSENGER:
-                    PassengerMenu.showMenu();
-                    break;
-                case ROLE_ADMIN:
-                    AdminMenu.showMenu();
-                    break;
-                case ROLE_STAFF:
-                    StaffMenu.showMenu();
-                    break;
-                case EXIT:
-                    System.out.println("\nThank you for using Airline Ticket Reservation System.");
-                    exitSystem = true;
-                    break;
-                default:
-                    System.out.println("Invalid Choice. Please try again.");
-            }
-        }
-    }
 
+        // ✅ Correct Flight object creation
+        Flight flight = new Flight(
+                "F1",
+                "Air India",
+                "Chennai",
+                "Delhi",
+                LocalDateTime.now().plusHours(2),
+                LocalDateTime.now().plusHours(5),
+                5000,
+                0,
+                50
+        );
+
+        Booking booking = new Booking(flight);
+
+        booking.addPassenger("Prabhu");
+
+        // ✅ Updated Seat constructor
+        booking.setSeat(new Seat("A1", Seat.SeatType.WINDOW, false, 0));
+
+        booking.setPaymentStatus("SUCCESS");
+
+        booking.display();
+
+        ModificationService ms = new ModificationService();
+
+        // Flight Change
+        ms.changeFlight(booking);
+
+        // Seat Change
+        ms.changeSeat(booking);
+
+        // Passenger Update
+        ms.modifyPassenger(booking);
+
+        booking.display();
+    }
 }
