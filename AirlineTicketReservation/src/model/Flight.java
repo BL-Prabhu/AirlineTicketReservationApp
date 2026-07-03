@@ -2,9 +2,8 @@ package model;
 
 import java.time.LocalDateTime;
 
-public class Flight
-{
-    
+public class Flight {
+
     private String flightNumber;
     private String airline;
     private String source;
@@ -13,12 +12,13 @@ public class Flight
     private LocalDateTime arrivalTime;
     private double price;
     private int stops;
-    private int seats;
+    private int availableSeats;
 
-
+    // ✅ Constructor matching repository
     public Flight(String flightNumber, String airline, String source, String destination,
                   LocalDateTime departureTime, LocalDateTime arrivalTime,
-                  double price, int stops, int seats) {
+                  double price, int stops, int availableSeats) {
+
         this.flightNumber = flightNumber;
         this.airline = airline;
         this.source = source;
@@ -27,25 +27,26 @@ public class Flight
         this.arrivalTime = arrivalTime;
         this.price = price;
         this.stops = stops;
-        this.seats = seats;
+        this.availableSeats = availableSeats;
     }
 
-    public String getAirline() { return airline; }
-    public String getSource() { return source; }
-    public String getDestination() { return destination; }
-    public LocalDateTime getDepartureTime() { return departureTime; }
-    public LocalDateTime getArrivalTime() { return arrivalTime; }
-    public double getPrice() { return price; }
-    public int getStops() { return stops; }
-    public int getSeats() { return seats; }
-
-    public long getDuration() {
-        return java.time.Duration.between(departureTime, arrivalTime).toMinutes();
+    public double getPrice() {
+        return price;
     }
 
-    @Override
     public String toString() {
-        return flightNumber + " | " + airline + " | " + source + " -> " + destination +
-                " | ₹" + price + " | Stops: " + stops;
+        return flightNumber + " | " + airline + " | " +
+                source + " -> " + destination +
+                " | ₹" + price +
+                " | Seats: " + availableSeats;
     }
+
+    public String getSource() {
+        return source;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
 }

@@ -2,6 +2,8 @@ package payment;
 
 public interface Payment {
     boolean validate();
-    boolean process(double amount);
+
+    boolean pay(double amt);
+
     void refund(double amount);
 }

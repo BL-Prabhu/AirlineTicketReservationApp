@@ -1,40 +1,46 @@
 package model;
 
-public class Seat
-{
+public class Seat {
 
-    public enum SeatType { WINDOW, MIDDLE, AISLE }
-    public enum SeatStatus { AVAILABLE, BOOKED, BLOCKED }
+    // ✅ Enum added
+    public enum SeatType {
+        WINDOW,
+        MIDDLE,
+        AISLE
+    }
 
-    private String seatNumber;
+    private String number;
     private SeatType type;
-    private SeatStatus status;
     private boolean isPremium;
     private double price;
 
-    public Seat(String seatNumber, SeatType type, boolean isPremium, double price) {
-        this.seatNumber = seatNumber;
+    // ✅ Updated constructor
+    public Seat(String number, SeatType type, boolean isPremium, double price) {
+        this.number = number;
         this.type = type;
         this.isPremium = isPremium;
         this.price = price;
-        this.status = SeatStatus.AVAILABLE;
     }
 
-    public String getSeatNumber() { return seatNumber; }
-    public SeatType getType() { return type; }
-    public SeatStatus getStatus() { return status; }
-    public boolean isPremium() { return isPremium; }
-    public double getPrice() { return price; }
-
-    public void book() {
-        this.status = SeatStatus.BOOKED;
+    public String getNumber() {
+        return number;
     }
 
-    public void block() {
-        this.status = SeatStatus.BLOCKED;
+    public SeatType getType() {
+        return type;
     }
 
-    public boolean isAvailable() {
-        return this.status == SeatStatus.AVAILABLE;
+    public boolean isPremium() {
+        return isPremium;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    @Override
+    public String toString() {
+        return number + " | " + type +
+                (isPremium ? " | Premium ₹" + price : " | Normal");
     }
 }

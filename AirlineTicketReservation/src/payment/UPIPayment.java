@@ -4,22 +4,25 @@ public class UPIPayment implements Payment {
 
     private String upiId;
 
+    // ✅ Constructor
     public UPIPayment(String upiId) {
         this.upiId = upiId;
     }
 
+    @Override
     public boolean validate() {
         return upiId != null && upiId.contains("@");
     }
 
-    public boolean process(double amount) {
-        System.out.println("Processing UPI Payment ₹" + amount);
-        System.out.println("UPI ID: " + upiId);
-        System.out.println("Payment Successful");
+    @Override
+    public boolean pay(double amt) {
+        System.out.println("UPI Payment ₹" + amt + " via " + upiId);
         return true;
     }
 
+    @Override
     public void refund(double amount) {
-        System.out.println("Refund ₹" + amount + " to UPI: " + upiId);
+        System.out.println("Refunding ₹" + amount + " to UPI: " + upiId);
     }
 }
+
