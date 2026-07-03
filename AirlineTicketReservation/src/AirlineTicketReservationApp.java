@@ -53,7 +53,7 @@ public class AirlineTicketReservationApp {
 
 
         // =========================
-        // 🔹 UC1–UC5: BOOKING FLOW
+        // 🔹 UC1–UC5: BOOKING
         // =========================
         Flight flight = new Flight(
                 "F1",
@@ -115,8 +115,36 @@ public class AirlineTicketReservationApp {
 
 
         // =========================
-        // ✅ FINAL
+        // 🔹 UC10: PRIORITY BOOKING
         // =========================
-        System.out.println("\n✅ SYSTEM EXECUTION COMPLETED");
+        PriorityBookingService pqService = new PriorityBookingService();
+
+        Booking b1 = new Booking(flight);
+        b1.addPassenger("User1");
+        b1.setSeat(new Seat("B1", Seat.SeatType.WINDOW, false, 0));
+        b1.setPaymentStatus("SUCCESS");
+
+        Booking b2 = new Booking(flight);
+        b2.addPassenger("User2");
+        b2.setSeat(new Seat("B2", Seat.SeatType.AISLE, false, 0));
+        b2.setPaymentStatus("SUCCESS");
+
+        Booking b3 = new Booking(flight);
+        b3.addPassenger("User3");
+        b3.setSeat(new Seat("B3", Seat.SeatType.MIDDLE, false, 0));
+        b3.setPaymentStatus("SUCCESS");
+
+        pqService.addBooking(new PriorityBooking(b1, PriorityBooking.PriorityLevel.REGULAR));
+        pqService.addBooking(new PriorityBooking(b2, PriorityBooking.PriorityLevel.EXPRESS));
+        pqService.addBooking(new PriorityBooking(b3, PriorityBooking.PriorityLevel.REGULAR));
+
+        pqService.status();
+        pqService.processAll();
+
+
+        // =========================
+        // ✅ FINAL OUTPUT
+        // =========================
+        System.out.println("\n✅ ALL USE CASES (UC1 → UC10) EXECUTED SUCCESSFULLY");
     }
 }
