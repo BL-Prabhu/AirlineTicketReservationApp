@@ -1,11 +1,7 @@
 package booking;
 
-import model.Flight;
-import model.Seat;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import model.*;
+import java.util.*;
 
 public class Booking {
 
@@ -13,33 +9,17 @@ public class Booking {
     private Flight flight;
     private Seat seat;
     private List<String> passengers = new ArrayList<>();
-    private BookingState state;
     private String paymentStatus;
+
+    // ✅ ADD THIS
+    private BookingState state;
 
     public Booking(Flight flight) {
         this.flight = flight;
-        this.pnr = generatePNR();
+        this.pnr = UUID.randomUUID().toString().substring(0,6);
+        this.state = new InitiatedState(); // default state
     }
 
-    private String generatePNR() {
-        return UUID.randomUUID().toString().substring(0, 6).toUpperCase();
-    }
-
-    // ✅ Add Passenger
-    public void addPassenger(String name) {
-        passengers.add(name);
-    }
-
-    // ✅ FIX: Add this method
-    public void setSeat(Seat seat) {
-        this.seat = seat;
-    }
-
-    public Seat getSeat() {
-        return seat;
-    }
-
-    // ✅ State Handling
     public void setState(BookingState state) {
         this.state = state;
     }
@@ -48,32 +28,34 @@ public class Booking {
         return state;
     }
 
-    public void nextState() {
+    public void addPassenger(String name) {
+        passengers.add(name);
+        state.next(this); // move to next state
+    }
+
+    public void setSeat(Seat seat) {
+        this.seat = seat;
         state.next(this);
     }
 
-    // ✅ Payment
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+    }
+
+    public Seat getSeat() { return seat; }
+    public Flight getFlight() { return flight; }
+    public String getPnr() { return pnr; }
+
     public void setPaymentStatus(String status) {
         this.paymentStatus = status;
     }
 
-    public String getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public String getPnr() {
-        return pnr;
-    }
-
-    // ✅ Display Booking
     public void display() {
-        System.out.println("\n----- BOOKING DETAILS -----");
-        System.out.println("PNR: " + pnr);
+        System.out.println("\nPNR: " + pnr);
         System.out.println("Flight: " + flight);
         System.out.println("Passengers: " + passengers);
-        System.out.println("Seat: " + (seat != null ? seat : "Not Selected"));
-        System.out.println("State: " + state.getStatus());
+        System.out.println("Seat: " + seat);
+        System.out.println("State: " + state.getStatus()); // ✅ show state
         System.out.println("Payment: " + paymentStatus);
     }
 }
-
