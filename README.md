@@ -1,183 +1,129 @@
-# ✈️ Airline Ticket Reservation System
+# ✈️ Use Case 10: Priority Booking Processing (PriorityQueue - DSA)
 
-## 📌 Use Case 9: Airport Management
+## 📌 Overview
 
----
-
-## 📖 Overview
-
-Use Case 9 introduces **Airport Management**, which handles all airport-related data used across the system.
-
-This module integrates with:
-
-* ✈️ Flight Management (UC8)
-* 🎟️ Booking System (UC1–UC5)
-* 🔄 Modification (UC6)
-* ❌ Cancellation (UC7)
-
-It ensures that all flights and bookings reference **valid and well-managed airport data**.
+This use case implements a **Priority Booking System** using the **PriorityQueue (Data Structure)** concept in Java. It ensures that high-priority bookings (Express) are processed before normal bookings (Regular).
 
 ---
 
-## 🎯 Features
+## 🎯 Objectives
 
-### 🔹 9.1 Airport Information Management
-
-Admin can manage airport details:
-
-* Add new airport with:
-
-  * Airport Code (IATA/ICAO)
-  * Airport Name
-  * City
-  * Country
-* Update airport details
-* Set timezone for each airport
-* Define terminal information
-* Mark airport as:
-
-  * ✅ Active
-  * ❌ Inactive
-* Store airport facilities:
-
-  * Lounge
-  * Wi-Fi
-  * Parking
-* Add contact details
+* Handle booking requests based on priority
+* Improve booking processing efficiency
+* Implement real-world queue management using DSA
 
 ---
 
-### 🔹 9.2 Airport Search and Retrieval
+## 🚀 Features
 
-System supports:
+### 🔹 1. Priority Levels
 
-* 🔍 Search airport by:
-
-  * Code (e.g., MAA, DEL)
-  * City name
-  * Airport name
-* 🌍 List airports by country
-* ⚡ Auto-suggest airports during flight booking
-* 📄 Display airport details to passengers
+* **EXPRESS** → High priority (processed first)
+* **REGULAR** → Normal priority
 
 ---
 
-## 🏗️ Classes Involved
+### 🔹 2. Queue Management
 
-### 📦 `Airport`
+* Uses Java **PriorityQueue**
+* Bookings are added with:
 
-Represents airport entity:
-
-* code
-* name
-* city
-* country
-* timezone
-* status (ACTIVE / INACTIVE)
-* facilities
-* contact details
+  * Priority level
+  * Timestamp (to maintain order)
 
 ---
 
-### 📦 `AirportManagementService`
+### 🔹 3. Processing Logic
 
-Handles all operations:
+* EXPRESS bookings are processed before REGULAR
+* If same priority → processed based on **timestamp (FIFO)**
+* Supports:
 
-* `addAirport()` → Add new airport
-* `updateAirport()` → Modify details
-* `searchByCode()` → Find by airport code
-* `searchByCity()` → Find airports in a city
-* `searchByName()` → Find by airport name
-* `listByCountry()` → List airports by country
-* `autoSuggest()` → Suggest airports while typing
+  * Add booking to queue
+  * Process next booking
+  * Process all bookings
 
 ---
 
-## 📊 Example Flow
+### 🔹 4. Fair Processing
 
-```java id="jv8s3o"
-
-```
-
----
-
-## 📈 Sample Output
-AirportManagementService airportService = new AirportManagementService();
-
-// Add Airports
-airportService.addAirport("MAA", "Chennai International Airport", "Chennai", "India");
-airportService.addAirport("DEL", "Indira Gandhi International Airport", "Delhi", "India");
-
-// Search
-airportService.searchByCode("MAA");
-airportService.searchByCity("Chennai");
-
-// List
-airportService.listByCountry("India");
-
-// Auto Suggest
-airportService.autoSuggest("Ch");
-```id="p1j4ci"
-Airport Added ✅: MAA | Chennai | India
-Airport Added ✅: DEL | Delhi | India
-
-Search by Code: MAA
-MAA | Chennai International Airport | Chennai | India
-
-Airports in Chennai:
-MAA | Chennai International Airport | Chennai | India
-
-Airports in India:
-MAA | Chennai International Airport
-DEL | Indira Gandhi International Airport
-
-Suggestions for 'Ch':
-Chennai International Airport
-```
+* Ensures REGULAR bookings are not ignored
+* Maintains balanced processing
 
 ---
 
-## 🔗 Integration with Previous Use Cases
+## 🧠 DSA Concept Used
 
-| Use Case | Integration                                    |
-| -------- | ---------------------------------------------- |
-| UC1–UC5  | Booking uses airport codes for routes          |
-| UC6      | Flight modification depends on airport routes  |
-| UC7      | Cancellation unaffected but linked via flights |
-| UC8      | Flights are created using airport data         |
-| UC9      | Central source of airport information          |
+* **PriorityQueue**
+* **Comparable Interface**
+* Custom sorting:
 
----
-
-## ✅ Key Highlights
-
-* Centralized airport data management
-* Improves flight search accuracy
-* Supports auto-suggestion (real-world feature)
-* Clean separation of concerns
-* Scalable for global airport data
+  * Priority → First level sorting
+  * Timestamp → Second level sorting
 
 ---
 
-## ⚠️ Design Notes
+## 🏗️ Class Structure
 
-* Flights should reference **airport codes instead of plain city names**
-* Only **ACTIVE airports** should be used in booking/search
-* Airport service should be initialized **before flight creation**
+### 📁 model
+
+* `PriorityBooking`
+
+  * Stores booking, priority, timestamp
+  * Implements `Comparable`
+
+### 📁 service
+
+* `PriorityBookingService`
+
+  * Manages queue operations
+  * Handles processing logic
 
 ---
 
-## 🚀 Future Enhancements
+## ⚙️ Workflow
 
-* 🌐 Integrate real airport database (IATA API)
-* 🗺️ Add map-based airport selection
-* ⏰ Timezone-based flight time conversion
-* 📡 Live airport status updates
-* 🔔 Passenger notifications based on airport changes
+1. Create booking
+2. Assign priority (EXPRESS / REGULAR)
+3. Add booking to PriorityQueue
+4. System sorts automatically
+5. Process bookings in priority order
 
 ---
 
-## 👨‍💻 Author
+## 📊 Example Execution
 
-Airline Ticket Reservation System – Java Project
-(Bridgelabz Training Assignment)
+Order of processing:
+
+1. EXPRESS → User2
+2. REGULAR → User1
+3. REGULAR → User3
+
+---
+
+## ✅ Advantages
+
+* Faster processing for urgent bookings
+* Efficient queue handling
+* Real-world airline booking simulation
+* Demonstrates strong DSA knowledge
+
+---
+
+## 🔥 Integration
+
+This use case is fully integrated with:
+
+* UC1–UC5 → Booking
+* UC6 → Modification
+* UC7 → Cancellation
+* UC8 → Flight Management
+* UC9 → Airport Management
+
+---
+
+## 🎉 Conclusion
+
+Use Case 10 enhances the system by introducing **priority-based booking processing**, making the airline reservation system more efficient, scalable, and realistic.
+
+---
