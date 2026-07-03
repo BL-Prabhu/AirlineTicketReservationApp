@@ -11,13 +11,12 @@ public class Flight {
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private double price;
-    private int stops;
-    private int availableSeats;
+    private int bookedSeats;
+    private int totalSeats;
 
-    // ✅ Constructor matching repository
     public Flight(String flightNumber, String airline, String source, String destination,
                   LocalDateTime departureTime, LocalDateTime arrivalTime,
-                  double price, int stops, int availableSeats) {
+                  double price, int bookedSeats, int totalSeats) {
 
         this.flightNumber = flightNumber;
         this.airline = airline;
@@ -26,19 +25,39 @@ public class Flight {
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.price = price;
-        this.stops = stops;
-        this.availableSeats = availableSeats;
+        this.bookedSeats = bookedSeats;
+        this.totalSeats = totalSeats;
     }
 
+    // ✅ CORRECT GETTER (NO PARAMETER)
+    public int getAvailableSeats() {
+        return totalSeats - bookedSeats;
+    }
+
+    // ✅ Setter to update booked seats indirectly
+    public void increaseBookedSeats(int count) {
+        this.bookedSeats += count;
+    }
+
+    public void decreaseBookedSeats(int count) {
+        this.bookedSeats -= count;
+    }
+
+    // 🔹 Other getters
     public double getPrice() {
         return price;
     }
 
-    public String toString() {
-        return flightNumber + " | " + airline + " | " +
-                source + " -> " + destination +
-                " | ₹" + price +
-                " | Seats: " + availableSeats;
+    public LocalDateTime getDepartureTime() {
+        return departureTime;
+    }
+
+    public String getFlightNumber() {
+        return flightNumber;
+    }
+
+    public String getAirline() {
+        return airline;
     }
 
     public String getSource() {
@@ -48,5 +67,9 @@ public class Flight {
     public String getDestination() {
         return destination;
     }
-
+    @Override
+    public String toString() {
+        return flightNumber + " | " + airline + " | " + source + " -> " + destination +
+                " | ₹" + price + " | Seats: " + getAvailableSeats();
+    }
 }
