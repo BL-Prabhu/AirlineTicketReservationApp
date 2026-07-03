@@ -10,19 +10,21 @@ public class EMIPayment implements Payment {
         this.months = months;
     }
 
+    @Override
     public boolean validate() {
         return cardNumber.length() == 16 && months > 0;
     }
 
-    public boolean process(double amount) {
+    @Override
+    public boolean pay(double amount) {
         double emi = amount / months;
         System.out.println("EMI Payment Selected");
         System.out.println("Monthly EMI: ₹" + emi);
         return true;
     }
 
+    @Override
     public void refund(double amount) {
         System.out.println("Refund EMI ₹" + amount);
     }
 }
-
