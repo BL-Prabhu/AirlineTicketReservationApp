@@ -5,23 +5,26 @@ public class CardPayment implements Payment {
     private String cardNumber;
     private String cvv;
 
+    // ✅ Constructor
     public CardPayment(String cardNumber, String cvv) {
         this.cardNumber = cardNumber;
         this.cvv = cvv;
     }
 
+    @Override
     public boolean validate() {
-        return cardNumber.length() == 16 && cvv.length() == 3;
+        return cardNumber != null && cardNumber.length() == 16
+                && cvv != null && cvv.length() == 3;
     }
 
-    public boolean process(double amount) {
-        System.out.println("Processing Card Payment ₹" + amount);
-        System.out.println("Card Ending: " + cardNumber.substring(12));
-        System.out.println("Payment Successful");
+    @Override
+    public boolean pay(double amt) {
+        System.out.println("Card Payment ₹" + amt + " using card " + cardNumber);
         return true;
     }
 
+    @Override
     public void refund(double amount) {
-        System.out.println("Refund ₹" + amount + " to Card");
+        System.out.println("Refunding ₹" + amount + " to card " + cardNumber);
     }
 }
