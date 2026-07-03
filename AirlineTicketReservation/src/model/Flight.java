@@ -11,8 +11,14 @@ public class Flight {
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private double price;
+
     private int bookedSeats;
     private int totalSeats;
+
+    // 🔹 NEW (UC8)
+    private String status; // ON_TIME, DELAYED, CANCELLED
+    private String aircraftType;
+    private double baggageAllowance;
 
     public Flight(String flightNumber, String airline, String source, String destination,
                   LocalDateTime departureTime, LocalDateTime arrivalTime,
@@ -27,49 +33,42 @@ public class Flight {
         this.price = price;
         this.bookedSeats = bookedSeats;
         this.totalSeats = totalSeats;
+
+        this.status = "ON_TIME";
+        this.aircraftType = "A320";
+        this.baggageAllowance = 15;
     }
 
-    // ✅ CORRECT GETTER (NO PARAMETER)
+    // 🔹 GETTERS
+    public String getFlightNumber() { return flightNumber; }
+    public String getAirline() { return airline; }
+    public String getSource() { return source; }
+    public String getDestination() { return destination; }
+    public LocalDateTime getDepartureTime() { return departureTime; }
+    public double getPrice() { return price; }
+    public String getStatus() { return status; }
+
     public int getAvailableSeats() {
         return totalSeats - bookedSeats;
     }
 
-    // ✅ Setter to update booked seats indirectly
-    public void increaseBookedSeats(int count) {
-        this.bookedSeats += count;
+    // 🔹 SETTERS
+    public void setPrice(double price) { this.price = price; }
+    public void setStatus(String status) { this.status = status; }
+    public void setAircraftType(String type) { this.aircraftType = type; }
+
+    public void increaseBookedSeats(int count) { bookedSeats += count; }
+    public void decreaseBookedSeats(int count) { bookedSeats -= count; }
+
+    // 🔹 OCCUPANCY
+    public double getOccupancyRate() {
+        return (bookedSeats * 100.0) / totalSeats;
     }
 
-    public void decreaseBookedSeats(int count) {
-        this.bookedSeats -= count;
-    }
-
-    // 🔹 Other getters
-    public double getPrice() {
-        return price;
-    }
-
-    public LocalDateTime getDepartureTime() {
-        return departureTime;
-    }
-
-    public String getFlightNumber() {
-        return flightNumber;
-    }
-
-    public String getAirline() {
-        return airline;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
     @Override
     public String toString() {
         return flightNumber + " | " + airline + " | " + source + " -> " + destination +
-                " | ₹" + price + " | Seats: " + getAvailableSeats();
+                " | ₹" + price + " | Seats: " + getAvailableSeats() +
+                " | Status: " + status;
     }
 }
