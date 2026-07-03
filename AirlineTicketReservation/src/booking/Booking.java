@@ -58,4 +58,21 @@ public class Booking {
         System.out.println("State: " + state.getStatus()); // ✅ show state
         System.out.println("Payment: " + paymentStatus);
     }
+// Add inside your existing Booking class
+
+    private String status = "CONFIRMED";
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public List<String> getPassengers() {
+        return passengers;
+    }
+
+
 }
