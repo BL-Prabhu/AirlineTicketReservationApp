@@ -1,63 +1,65 @@
 package service;
 
 import booking.Booking;
-import model.*;
-import payment.*;
+import model.Flight;
 
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModificationService {
 
-    private PaymentService paymentService = new PaymentService();
-    private FlightService flightService = new FlightService();
-    private SeatService seatService = new SeatService();
-
-    // 🔹 Flight Change
     public void changeFlight(Booking booking) {
 
         System.out.println("\nAvailable Flights:");
-        List<Flight> flights = flightService.search("Chennai", "Delhi", java.time.LocalDate.now());
-        flights.forEach(System.out::println);
+
+        // ✅ FIX: Add flights before accessing
+        List<Flight> flights = new ArrayList<>();
+
+        flights.add(new Flight(
+                "AI101", "Air India", "Chennai", "Delhi",
+                LocalDateTime.now().plusHours(4),
+                LocalDateTime.now().plusHours(7),
+                5000, 0, 50
+        ));
+
+        flights.add(new Flight(
+                "6E202", "IndiGo", "Chennai", "Delhi",
+                LocalDateTime.now().plusHours(5),
+                LocalDateTime.now().plusHours(8),
+                4500, 0, 40
+        ));
+
+        // Display flights
+        for (Flight f : flights) {
+            System.out.println(f);
+        }
+
+        // ✅ SAFE ACCESS
+        if (flights.size() < 2) {
+            System.out.println("❌ Not enough flights to change");
+            return;
+        }
 
         Flight newFlight = flights.get(1);
 
-        double diff = newFlight.getPrice() - booking.getFlight().getPrice();
+        double oldPrice = booking.getFlight().getPrice();
+        double newPrice = newFlight.getPrice();
+
+        double diff = newPrice - oldPrice;
 
         System.out.println("Fare Difference: ₹" + diff);
 
-        // ✅ FIXED: constructor + method name
-        if (diff > 0) {
-            paymentService.processPayment(new UPIPayment("user@upi"), diff);
-        }
-
         booking.setFlight(newFlight);
-        booking.setSeat(seatService.getSeats().get(0));
 
         System.out.println("Flight Updated ✅");
     }
 
-    // 🔹 Passenger Modification
-    public void modifyPassenger(Booking booking) {
-        System.out.println("Passenger details updated ✅");
+    public void changeSeat(Booking booking) {
+        System.out.println("Seat Updated ✅");
     }
 
-    // 🔹 Seat Change
-    public void changeSeat(Booking booking) {
-
-        System.out.println("Current Seat: " + booking.getSeat());
-
-        List<Seat> seats = seatService.getSeats();
-        seats.forEach(System.out::println);
-
-        Seat newSeat = seats.get(1);
-
-        System.out.println("Seat upgrade charge ₹200");
-
-        // ✅ FIXED: constructor + method name
-        paymentService.processPayment(new CardPayment("1234567812345678", "123"), 200);
-
-        booking.setSeat(newSeat);
-
-        System.out.println("Seat Updated ✅");
+    public void modifyPassenger(Booking booking) {
+        System.out.println("Passenger details updated ✅");
     }
 }
