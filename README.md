@@ -1,73 +1,57 @@
-# ✈️ Use Case 13: Reporting and Analytics (Admin)
+# ✈️ Use Case 14: Check-In System
 
 ## 📌 Overview
 
-This use case introduces **Reporting and Analytics** features for the airline reservation system.
-It helps administrators analyze data related to bookings, flights, and passengers to make **better business decisions**.
+This use case implements the **Online Check-In System** for the airline reservation application.
+It allows passengers to check in before their flight, select or confirm seats, and receive their boarding pass.
 
 ---
 
 ## 🎯 Objectives
 
-* Provide insights into booking and revenue data
-* Analyze flight performance and trends
-* Understand passenger behavior
-* Support data-driven decision making
+* Enable online check-in for passengers
+* Reduce airport waiting time
+* Ensure passenger and document validation
+* Provide digital and printable boarding passes
 
 ---
 
-## 📊 Features
+## 🚀 Features
 
 ---
 
-## 🔹 1. Booking Reports
+## 🔹 1. Online Check-In
 
 ### 📌 Description
 
-Generates reports related to booking activities and revenue.
+Passengers can check in online within a specific time window before departure.
 
-### ⚙️ Supported Reports
+### ⚙️ Supported Features
 
-* Daily booking report
-* Revenue report by date range
-* Booking trends by route
-* Booking trends by airline
-* Average booking value calculation
-* Cancellation rate tracking
-* Payment success/failure rate monitoring
-
----
-
-## 🔹 2. Flight Performance Reports
-
-### 📌 Description
-
-Analyzes how flights are performing operationally and financially.
-
-### ⚙️ Supported Reports
-
-* Flight occupancy rate calculation
-* Popular routes identification
-* Revenue per flight analysis
-* Airline performance comparison
-* Peak booking period detection
-* Seat utilization reports
+* Retrieve booking 24 hours before departure
+* Verify passenger details
+* Confirm or change seat selection
+* Generate mobile boarding pass
+* Download printable boarding pass
+* Update check-in status in booking
+* Send boarding pass via email
 
 ---
 
-## 🔹 3. Passenger Analytics
+## 🔹 2. Check-In Validation
 
 ### 📌 Description
 
-Provides insights into passenger behavior and preferences.
+Ensures all conditions are met before allowing check-in.
 
-### ⚙️ Supported Analytics
+### ⚙️ Validation Rules
 
-* Passenger demographics analysis
-* Repeat customer tracking
-* Customer lifetime value calculation
-* Booking pattern analysis
-* Passenger preference reports
+* Check-in allowed only between **24 hours to 3 hours before departure**
+* Verify passenger identity and details
+* Validate required documents (ID / Passport)
+* Check baggage allowance limits
+* Confirm special assistance requests
+* Passport validation for international flights
 
 ---
 
@@ -75,72 +59,71 @@ Provides insights into passenger behavior and preferences.
 
 ### 📁 service (Suggested)
 
-* `ReportService`
+* `CheckInService`
 
-  * Generates all reports
-* `AnalyticsService`
+  * Handles check-in process
+* `ValidationService`
 
-  * Performs data analysis
+  * Performs all validations
+
+### 📁 model (Suggested)
+
+* `BoardingPass`
+
+  * Contains passenger and flight details
 
 ---
 
 ## ⚙️ Workflow
 
-### Booking Report Flow
+### Online Check-In Flow
 
-1. Collect booking data
-2. Filter by date / route / airline
-3. Calculate metrics
-4. Generate report
-
----
-
-### Flight Report Flow
-
-1. Retrieve flight data
-2. Analyze occupancy and revenue
-3. Compare performance
-4. Generate insights
+1. Passenger retrieves booking
+2. System verifies check-in window
+3. Passenger confirms or selects seat
+4. System generates boarding pass
+5. Booking status updated to "CHECKED-IN"
+6. Boarding pass sent via email
 
 ---
 
-### Passenger Analytics Flow
+### Validation Flow
 
-1. Collect passenger data
-2. Analyze behavior patterns
-3. Identify trends
-4. Generate analytics report
+1. Check time window
+2. Verify passenger details
+3. Validate documents
+4. Check baggage rules
+5. Approve or reject check-in
 
 ---
 
-## 📈 Key Metrics
+## 📄 Boarding Pass Includes
 
-* Total bookings
-* Total revenue
-* Average booking value
-* Cancellation rate
-* Occupancy rate
-* Revenue per flight
-* Repeat customer rate
+* Passenger name
+* Flight number
+* Seat number
+* Boarding time
+* Gate details
+* QR code / barcode (optional)
 
 ---
 
 ## 📊 Advantages
 
-✔ Better business insights
-✔ Improved decision making
-✔ Identifies growth opportunities
-✔ Tracks system performance
-✔ Enhances customer understanding
+✔ Faster airport process
+✔ Improved passenger experience
+✔ Reduced manual check-in workload
+✔ Digital boarding pass convenience
+✔ Better validation and security
 
 ---
 
 ## 🔒 Considerations
 
-* Ensure data accuracy
-* Handle large data efficiently
-* Maintain data privacy
-* Optimize report generation time
+* Ensure accurate time validation
+* Handle invalid or expired documents
+* Prevent duplicate check-ins
+* Maintain secure passenger data
 
 ---
 
@@ -148,19 +131,18 @@ Provides insights into passenger behavior and preferences.
 
 This use case integrates with:
 
-* UC1–UC5 → Booking data
-* UC6 → Modification data
-* UC7 → Cancellation data
-* UC8 → Flight data
-* UC9 → Airport data
-* UC10 → Priority booking trends
-* UC11 → Singleton managers (centralized data)
-* UC12 → Notification logs (optional insights)
+* UC1–UC5 → Booking (retrieve booking details)
+* UC6 → Modification (updated seat details)
+* UC7 → Cancellation (prevent check-in if cancelled)
+* UC8 → Flight Management (flight schedule validation)
+* UC9 → Airport Management (terminal/gate info)
+* UC12 → Notifications (boarding pass email)
+* UC13 → Analytics (check-in trends)
 
 ---
 
 ## 🎉 Conclusion
 
-Reporting and Analytics enhance the system by providing **valuable insights into bookings, flights, and passengers**, helping administrators improve performance, optimize operations, and increase revenue.
+The Check-In System improves efficiency by enabling **online validation, seat confirmation, and digital boarding passes**, making the airline system more user-friendly and operationally efficient.
 
 ---
