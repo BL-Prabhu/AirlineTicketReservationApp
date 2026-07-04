@@ -1,129 +1,161 @@
-# ✈️ Use Case 10: Priority Booking Processing (PriorityQueue - DSA)
+# ✈️ Use Case 11: Singleton Pattern Implementation
 
 ## 📌 Overview
 
-This use case implements a **Priority Booking System** using the **PriorityQueue (Data Structure)** concept in Java. It ensures that high-priority bookings (Express) are processed before normal bookings (Regular).
+This use case introduces the **Singleton Design Pattern** to ensure that only **one instance** of key management classes exists throughout the system.
+
+It provides **centralized control, better performance, and consistency** across booking, flight, and payment operations.
 
 ---
 
 ## 🎯 Objectives
 
-* Handle booking requests based on priority
-* Improve booking processing efficiency
-* Implement real-world queue management using DSA
+* Ensure a single shared instance for critical services
+* Avoid duplicate object creation
+* Provide centralized data and state management
+* Improve system performance using caching
 
 ---
 
-## 🚀 Features
+## 🧠 Design Pattern Used
 
-### 🔹 1. Priority Levels
+### 🔹 Singleton Pattern
 
-* **EXPRESS** → High priority (processed first)
-* **REGULAR** → Normal priority
-
----
-
-### 🔹 2. Queue Management
-
-* Uses Java **PriorityQueue**
-* Bookings are added with:
-
-  * Priority level
-  * Timestamp (to maintain order)
+* Restricts class to **only one instance**
+* Provides a **global access point**
+* Ensures **thread safety**
 
 ---
 
-### 🔹 3. Processing Logic
-
-* EXPRESS bookings are processed before REGULAR
-* If same priority → processed based on **timestamp (FIFO)**
-* Supports:
-
-  * Add booking to queue
-  * Process next booking
-  * Process all bookings
+## 🏗️ Components
 
 ---
 
-### 🔹 4. Fair Processing
+## 🔹 1. BookingManager Singleton
 
-* Ensures REGULAR bookings are not ignored
-* Maintains balanced processing
+### 📌 Responsibilities
+
+* Manage all booking operations
+* Store and retrieve bookings
+* Handle booking modifications
+* Maintain booking cache
+
+### ⚙️ Features
+
+* Single instance across system
+* Prevent duplicate bookings
+* Fast retrieval using in-memory storage
+* Centralized booking state
+
+### 💡 Example Responsibilities
+
+* Create booking
+* Get booking by ID
+* Update booking
+* Delete booking
 
 ---
 
-## 🧠 DSA Concept Used
+## 🔹 2. FlightManager Singleton
 
-* **PriorityQueue**
-* **Comparable Interface**
-* Custom sorting:
+### 📌 Responsibilities
 
-  * Priority → First level sorting
-  * Timestamp → Second level sorting
+* Manage all flight data
+* Handle seat availability
+* Maintain flight inventory
+
+### ⚙️ Features
+
+* Thread-safe seat allocation
+* Synchronize seat updates
+* Cache flight data for fast search
+* Handle flight CRUD operations
+
+### 💡 Example Responsibilities
+
+* Add flight
+* Update flight details
+* Check seat availability
+* Allocate seats
 
 ---
 
-## 🏗️ Class Structure
+## 🔹 3. PaymentManager Singleton
 
-### 📁 model
+### 📌 Responsibilities
 
-* `PriorityBooking`
+* Handle all payment operations
+* Coordinate payment processing
+* Manage refunds and transactions
 
-  * Stores booking, priority, timestamp
-  * Implements `Comparable`
+### ⚙️ Features
 
-### 📁 service
+* Route to correct payment gateway (UPI/Card)
+* Maintain transaction logs
+* Handle callbacks/webhooks
+* Centralized refund processing
 
-* `PriorityBookingService`
+### 💡 Example Responsibilities
 
-  * Manages queue operations
-  * Handles processing logic
+* Process payment
+* Validate payment
+* Process refund
+* Log transactions
+
+---
+
+## 🔒 Thread Safety
+
+Singleton classes use:
+
+* `synchronized` method OR
+* Double-checked locking
+
+This ensures safe usage in **multi-threaded environments**.
 
 ---
 
 ## ⚙️ Workflow
 
-1. Create booking
-2. Assign priority (EXPRESS / REGULAR)
-3. Add booking to PriorityQueue
-4. System sorts automatically
-5. Process bookings in priority order
+1. Call `getInstance()` to access manager
+2. Use instance to perform operations
+3. Same instance used across application
 
 ---
 
-## 📊 Example Execution
+## 📊 Advantages
 
-Order of processing:
-
-1. EXPRESS → User2
-2. REGULAR → User1
-3. REGULAR → User3
+✔ Ensures single source of truth
+✔ Reduces memory usage
+✔ Improves performance with caching
+✔ Prevents inconsistent data
+✔ Easy global access
 
 ---
 
-## ✅ Advantages
+## ⚠️ Considerations
 
-* Faster processing for urgent bookings
-* Efficient queue handling
-* Real-world airline booking simulation
-* Demonstrates strong DSA knowledge
+* Must handle thread safety properly
+* Avoid overuse (not all classes should be Singleton)
+* Global state should be managed carefully
 
 ---
 
 ## 🔥 Integration
 
-This use case is fully integrated with:
+This use case integrates with:
 
-* UC1–UC5 → Booking
+* UC1–UC5 → Booking System
 * UC6 → Modification
 * UC7 → Cancellation
 * UC8 → Flight Management
 * UC9 → Airport Management
+* UC10 → Priority Booking (Queue Processing)
 
 ---
 
 ## 🎉 Conclusion
 
-Use Case 10 enhances the system by introducing **priority-based booking processing**, making the airline reservation system more efficient, scalable, and realistic.
+The Singleton Pattern ensures **centralized, efficient, and consistent management** of bookings, flights, and payments, making the airline reservation system more scalable and production-ready.
 
 ---
