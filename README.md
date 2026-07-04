@@ -1,161 +1,152 @@
-# ✈️ Use Case 11: Singleton Pattern Implementation
+# ✈️ Use Case 12: Notification System
 
 ## 📌 Overview
 
-This use case introduces the **Singleton Design Pattern** to ensure that only **one instance** of key management classes exists throughout the system.
-
-It provides **centralized control, better performance, and consistency** across booking, flight, and payment operations.
+This use case implements a **Notification System** for the airline reservation application.
+It ensures that passengers receive **real-time updates and confirmations** via multiple communication channels like Email, SMS, and WhatsApp.
 
 ---
 
 ## 🎯 Objectives
 
-* Ensure a single shared instance for critical services
-* Avoid duplicate object creation
-* Provide centralized data and state management
-* Improve system performance using caching
+* Notify users about booking, flight updates, and cancellations
+* Improve user experience with timely communication
+* Provide multi-channel notification support
+* Ensure transparency in booking and payment processes
 
 ---
 
-## 🧠 Design Pattern Used
-
-### 🔹 Singleton Pattern
-
-* Restricts class to **only one instance**
-* Provides a **global access point**
-* Ensures **thread safety**
+## 🚀 Features
 
 ---
 
-## 🏗️ Components
+## 🔹 1. Booking Notifications
+
+### 📌 Description
+
+Notifications sent immediately after a successful booking.
+
+### ⚙️ Supported Notifications
+
+* Booking confirmation email with **e-ticket**
+* SMS confirmation with **PNR number**
+* Payment receipt via email
+* WhatsApp notification (optional)
+
+### 📄 Includes
+
+* Passenger details
+* Flight information
+* Seat details
+* Travel date & time
 
 ---
 
-## 🔹 1. BookingManager Singleton
+## 🔹 2. Flight Update Notifications
 
-### 📌 Responsibilities
+### 📌 Description
 
-* Manage all booking operations
-* Store and retrieve bookings
-* Handle booking modifications
-* Maintain booking cache
+Notifications sent when there are changes in flight status.
 
-### ⚙️ Features
+### ⚙️ Supported Notifications
 
-* Single instance across system
-* Prevent duplicate bookings
-* Fast retrieval using in-memory storage
-* Centralized booking state
-
-### 💡 Example Responsibilities
-
-* Create booking
-* Get booking by ID
-* Update booking
-* Delete booking
+* Flight delay alerts
+* Gate change notifications
+* Flight cancellation alerts
+* Check-in reminders (24 hours before departure)
+* Boarding reminders (3 hours before departure)
 
 ---
 
-## 🔹 2. FlightManager Singleton
+## 🔹 3. Modification & Cancellation Notifications
 
-### 📌 Responsibilities
+### 📌 Description
 
-* Manage all flight data
-* Handle seat availability
-* Maintain flight inventory
+Notifications triggered when booking is modified or cancelled.
 
-### ⚙️ Features
+### ⚙️ Supported Notifications
 
-* Thread-safe seat allocation
-* Synchronize seat updates
-* Cache flight data for fast search
-* Handle flight CRUD operations
-
-### 💡 Example Responsibilities
-
-* Add flight
-* Update flight details
-* Check seat availability
-* Allocate seats
+* Booking modification confirmation with updated e-ticket
+* Cancellation confirmation
+* Refund initiation notification
+* Refund completion notification
 
 ---
 
-## 🔹 3. PaymentManager Singleton
+## 🧠 System Design
 
-### 📌 Responsibilities
+### 📁 service (Suggested)
 
-* Handle all payment operations
-* Coordinate payment processing
-* Manage refunds and transactions
+* `NotificationService`
 
-### ⚙️ Features
-
-* Route to correct payment gateway (UPI/Card)
-* Maintain transaction logs
-* Handle callbacks/webhooks
-* Centralized refund processing
-
-### 💡 Example Responsibilities
-
-* Process payment
-* Validate payment
-* Process refund
-* Log transactions
-
----
-
-## 🔒 Thread Safety
-
-Singleton classes use:
-
-* `synchronized` method OR
-* Double-checked locking
-
-This ensures safe usage in **multi-threaded environments**.
+    * Handles all notification logic
+* `EmailService`
+* `SMSService`
+* `WhatsAppService` (optional)
 
 ---
 
 ## ⚙️ Workflow
 
-1. Call `getInstance()` to access manager
-2. Use instance to perform operations
-3. Same instance used across application
+### Booking Flow
+
+1. Booking completed
+2. Payment successful
+3. Trigger notification service
+4. Send email + SMS + (optional WhatsApp)
+
+---
+
+### Flight Update Flow
+
+1. Flight status updated
+2. System detects change
+3. Notify all affected passengers
+
+---
+
+### Cancellation Flow
+
+1. Booking cancelled
+2. Refund initiated
+3. Notifications sent for both events
 
 ---
 
 ## 📊 Advantages
 
-✔ Ensures single source of truth
-✔ Reduces memory usage
-✔ Improves performance with caching
-✔ Prevents inconsistent data
-✔ Easy global access
+✔ Real-time communication
+✔ Improved customer satisfaction
+✔ Transparency in booking lifecycle
+✔ Multi-channel notification support
+✔ Easy integration with external APIs
 
 ---
 
-## ⚠️ Considerations
+## 🔒 Considerations
 
-* Must handle thread safety properly
-* Avoid overuse (not all classes should be Singleton)
-* Global state should be managed carefully
+* Handle notification failures (retry mechanism)
+* Avoid duplicate notifications
+* Ensure user contact details are valid
+* Maintain logs for all notifications
 
 ---
 
 ## 🔥 Integration
 
-This use case integrates with:
+This use case works with:
 
-* UC1–UC5 → Booking System
-* UC6 → Modification
-* UC7 → Cancellation
-* UC8 → Flight Management
-* UC9 → Airport Management
-* UC10 → Priority Booking (Queue Processing)
+* UC1–UC5 → Booking (confirmation notifications)
+* UC6 → Modification (update notifications)
+* UC7 → Cancellation (refund notifications)
+* UC8 → Flight Management (status updates)
+* UC10 → Priority Booking (high-priority alerts)
+* UC11 → Singleton Managers (centralized control)
 
 ---
 
 ## 🎉 Conclusion
 
-The Singleton Pattern ensures **centralized, efficient, and consistent management** of bookings, flights, and payments, making the airline reservation system more scalable and production-ready.
+The Notification System enhances the airline application by providing **timely, accurate, and multi-channel communication**, making the system more user-friendly and reliable.
 
 ---
