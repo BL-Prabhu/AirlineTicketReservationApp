@@ -1,18 +1,18 @@
-# ✈️ Use Case 14: Check-In System
+# ✈️ Use Case 15: Search Optimization (Performance & Smart Search)
 
 ## 📌 Overview
 
-This use case implements the **Online Check-In System** for the airline reservation application.
-It allows passengers to check in before their flight, select or confirm seats, and receive their boarding pass.
+This use case focuses on improving the **search performance and user experience** in the airline reservation system.
+It introduces **caching, indexing, and smart search features** to provide faster and more relevant flight results.
 
 ---
 
 ## 🎯 Objectives
 
-* Enable online check-in for passengers
-* Reduce airport waiting time
-* Ensure passenger and document validation
-* Provide digital and printable boarding passes
+* Improve search speed and efficiency
+* Reduce system load using caching
+* Provide intelligent search suggestions
+* Enhance user experience with smart features
 
 ---
 
@@ -20,38 +20,41 @@ It allows passengers to check in before their flight, select or confirm seats, a
 
 ---
 
-## 🔹 1. Online Check-In
+## 🔹 1. Caching and Performance
 
 ### 📌 Description
 
-Passengers can check in online within a specific time window before departure.
+Optimizes system performance by storing frequently accessed data.
 
-### ⚙️ Supported Features
+### ⚙️ Implementations
 
-* Retrieve booking 24 hours before departure
-* Verify passenger details
-* Confirm or change seat selection
-* Generate mobile boarding pass
-* Download printable boarding pass
-* Update check-in status in booking
-* Send boarding pass via email
+* Cache frequently searched routes
+* Cache popular flight combinations
+* Use indexing for fast airport lookup
+* Optimize database queries with proper indexes
+* Implement pagination for large search results
+
+### 💡 Benefits
+
+* Faster response time
+* Reduced database load
+* Improved scalability
 
 ---
 
-## 🔹 2. Check-In Validation
+## 🔹 2. Smart Search Features
 
 ### 📌 Description
 
-Ensures all conditions are met before allowing check-in.
+Enhances search experience with intelligent suggestions and flexibility.
 
-### ⚙️ Validation Rules
+### ⚙️ Features
 
-* Check-in allowed only between **24 hours to 3 hours before departure**
-* Verify passenger identity and details
-* Validate required documents (ID / Passport)
-* Check baggage allowance limits
-* Confirm special assistance requests
-* Passport validation for international flights
+* Auto-complete for airport search
+* Suggest nearby alternative airports
+* Recommend optimal travel dates (price calendar)
+* Show price trends for selected routes
+* Flexible date search (±3 days)
 
 ---
 
@@ -59,71 +62,60 @@ Ensures all conditions are met before allowing check-in.
 
 ### 📁 service (Suggested)
 
-* `CheckInService`
+* `SearchService`
 
-  * Handles check-in process
-* `ValidationService`
+  * Handles flight search logic
+* `CacheService`
 
-  * Performs all validations
+  * Manages caching of results
 
-### 📁 model (Suggested)
+### 📁 util (Optional)
 
-* `BoardingPass`
+* `SearchIndex`
 
-  * Contains passenger and flight details
+  * Maintains indexed data for fast lookup
 
 ---
 
 ## ⚙️ Workflow
 
-### Online Check-In Flow
+### Search Flow
 
-1. Passenger retrieves booking
-2. System verifies check-in window
-3. Passenger confirms or selects seat
-4. System generates boarding pass
-5. Booking status updated to "CHECKED-IN"
-6. Boarding pass sent via email
-
----
-
-### Validation Flow
-
-1. Check time window
-2. Verify passenger details
-3. Validate documents
-4. Check baggage rules
-5. Approve or reject check-in
+1. User enters source, destination, date
+2. System checks cache for existing results
+3. If cache hit → return results instantly
+4. If cache miss → query database
+5. Store result in cache
+6. Return paginated results
 
 ---
 
-## 📄 Boarding Pass Includes
+### Smart Search Flow
 
-* Passenger name
-* Flight number
-* Seat number
-* Boarding time
-* Gate details
-* QR code / barcode (optional)
+1. User types airport name
+2. System provides auto-suggestions
+3. Suggest nearby airports if available
+4. Show flexible date options
+5. Display price trends
 
 ---
 
 ## 📊 Advantages
 
-✔ Faster airport process
-✔ Improved passenger experience
-✔ Reduced manual check-in workload
-✔ Digital boarding pass convenience
-✔ Better validation and security
+✔ Faster flight search
+✔ Better user experience
+✔ Reduced system load
+✔ Intelligent recommendations
+✔ Scalable architecture
 
 ---
 
 ## 🔒 Considerations
 
-* Ensure accurate time validation
-* Handle invalid or expired documents
-* Prevent duplicate check-ins
-* Maintain secure passenger data
+* Cache invalidation strategy
+* Data freshness vs performance
+* Memory usage for caching
+* Efficient indexing techniques
 
 ---
 
@@ -131,18 +123,16 @@ Ensures all conditions are met before allowing check-in.
 
 This use case integrates with:
 
-* UC1–UC5 → Booking (retrieve booking details)
-* UC6 → Modification (updated seat details)
-* UC7 → Cancellation (prevent check-in if cancelled)
-* UC8 → Flight Management (flight schedule validation)
-* UC9 → Airport Management (terminal/gate info)
-* UC12 → Notifications (boarding pass email)
-* UC13 → Analytics (check-in trends)
+* UC8 → Flight Management (search data)
+* UC9 → Airport Management (auto-suggest & lookup)
+* UC10 → Priority Booking (optimized queue handling)
+* UC11 → Singleton Managers (shared cache instance)
+* UC13 → Analytics (search trends & insights)
 
 ---
 
 ## 🎉 Conclusion
 
-The Check-In System improves efficiency by enabling **online validation, seat confirmation, and digital boarding passes**, making the airline system more user-friendly and operationally efficient.
+Search Optimization improves the airline system by delivering **fast, intelligent, and user-friendly search results**, making the application more efficient and competitive.
 
 ---
