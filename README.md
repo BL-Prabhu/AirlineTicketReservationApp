@@ -1,75 +1,73 @@
-# ✈️ Use Case 12: Notification System
+# ✈️ Use Case 13: Reporting and Analytics (Admin)
 
 ## 📌 Overview
 
-This use case implements a **Notification System** for the airline reservation application.
-It ensures that passengers receive **real-time updates and confirmations** via multiple communication channels like Email, SMS, and WhatsApp.
+This use case introduces **Reporting and Analytics** features for the airline reservation system.
+It helps administrators analyze data related to bookings, flights, and passengers to make **better business decisions**.
 
 ---
 
 ## 🎯 Objectives
 
-* Notify users about booking, flight updates, and cancellations
-* Improve user experience with timely communication
-* Provide multi-channel notification support
-* Ensure transparency in booking and payment processes
+* Provide insights into booking and revenue data
+* Analyze flight performance and trends
+* Understand passenger behavior
+* Support data-driven decision making
 
 ---
 
-## 🚀 Features
+## 📊 Features
 
 ---
 
-## 🔹 1. Booking Notifications
+## 🔹 1. Booking Reports
 
 ### 📌 Description
 
-Notifications sent immediately after a successful booking.
+Generates reports related to booking activities and revenue.
 
-### ⚙️ Supported Notifications
+### ⚙️ Supported Reports
 
-* Booking confirmation email with **e-ticket**
-* SMS confirmation with **PNR number**
-* Payment receipt via email
-* WhatsApp notification (optional)
-
-### 📄 Includes
-
-* Passenger details
-* Flight information
-* Seat details
-* Travel date & time
+* Daily booking report
+* Revenue report by date range
+* Booking trends by route
+* Booking trends by airline
+* Average booking value calculation
+* Cancellation rate tracking
+* Payment success/failure rate monitoring
 
 ---
 
-## 🔹 2. Flight Update Notifications
+## 🔹 2. Flight Performance Reports
 
 ### 📌 Description
 
-Notifications sent when there are changes in flight status.
+Analyzes how flights are performing operationally and financially.
 
-### ⚙️ Supported Notifications
+### ⚙️ Supported Reports
 
-* Flight delay alerts
-* Gate change notifications
-* Flight cancellation alerts
-* Check-in reminders (24 hours before departure)
-* Boarding reminders (3 hours before departure)
+* Flight occupancy rate calculation
+* Popular routes identification
+* Revenue per flight analysis
+* Airline performance comparison
+* Peak booking period detection
+* Seat utilization reports
 
 ---
 
-## 🔹 3. Modification & Cancellation Notifications
+## 🔹 3. Passenger Analytics
 
 ### 📌 Description
 
-Notifications triggered when booking is modified or cancelled.
+Provides insights into passenger behavior and preferences.
 
-### ⚙️ Supported Notifications
+### ⚙️ Supported Analytics
 
-* Booking modification confirmation with updated e-ticket
-* Cancellation confirmation
-* Refund initiation notification
-* Refund completion notification
+* Passenger demographics analysis
+* Repeat customer tracking
+* Customer lifetime value calculation
+* Booking pattern analysis
+* Passenger preference reports
 
 ---
 
@@ -77,76 +75,92 @@ Notifications triggered when booking is modified or cancelled.
 
 ### 📁 service (Suggested)
 
-* `NotificationService`
+* `ReportService`
 
-    * Handles all notification logic
-* `EmailService`
-* `SMSService`
-* `WhatsAppService` (optional)
+  * Generates all reports
+* `AnalyticsService`
+
+  * Performs data analysis
 
 ---
 
 ## ⚙️ Workflow
 
-### Booking Flow
+### Booking Report Flow
 
-1. Booking completed
-2. Payment successful
-3. Trigger notification service
-4. Send email + SMS + (optional WhatsApp)
-
----
-
-### Flight Update Flow
-
-1. Flight status updated
-2. System detects change
-3. Notify all affected passengers
+1. Collect booking data
+2. Filter by date / route / airline
+3. Calculate metrics
+4. Generate report
 
 ---
 
-### Cancellation Flow
+### Flight Report Flow
 
-1. Booking cancelled
-2. Refund initiated
-3. Notifications sent for both events
+1. Retrieve flight data
+2. Analyze occupancy and revenue
+3. Compare performance
+4. Generate insights
+
+---
+
+### Passenger Analytics Flow
+
+1. Collect passenger data
+2. Analyze behavior patterns
+3. Identify trends
+4. Generate analytics report
+
+---
+
+## 📈 Key Metrics
+
+* Total bookings
+* Total revenue
+* Average booking value
+* Cancellation rate
+* Occupancy rate
+* Revenue per flight
+* Repeat customer rate
 
 ---
 
 ## 📊 Advantages
 
-✔ Real-time communication
-✔ Improved customer satisfaction
-✔ Transparency in booking lifecycle
-✔ Multi-channel notification support
-✔ Easy integration with external APIs
+✔ Better business insights
+✔ Improved decision making
+✔ Identifies growth opportunities
+✔ Tracks system performance
+✔ Enhances customer understanding
 
 ---
 
 ## 🔒 Considerations
 
-* Handle notification failures (retry mechanism)
-* Avoid duplicate notifications
-* Ensure user contact details are valid
-* Maintain logs for all notifications
+* Ensure data accuracy
+* Handle large data efficiently
+* Maintain data privacy
+* Optimize report generation time
 
 ---
 
 ## 🔥 Integration
 
-This use case works with:
+This use case integrates with:
 
-* UC1–UC5 → Booking (confirmation notifications)
-* UC6 → Modification (update notifications)
-* UC7 → Cancellation (refund notifications)
-* UC8 → Flight Management (status updates)
-* UC10 → Priority Booking (high-priority alerts)
-* UC11 → Singleton Managers (centralized control)
+* UC1–UC5 → Booking data
+* UC6 → Modification data
+* UC7 → Cancellation data
+* UC8 → Flight data
+* UC9 → Airport data
+* UC10 → Priority booking trends
+* UC11 → Singleton managers (centralized data)
+* UC12 → Notification logs (optional insights)
 
 ---
 
 ## 🎉 Conclusion
 
-The Notification System enhances the airline application by providing **timely, accurate, and multi-channel communication**, making the system more user-friendly and reliable.
+Reporting and Analytics enhance the system by providing **valuable insights into bookings, flights, and passengers**, helping administrators improve performance, optimize operations, and increase revenue.
 
 ---
