@@ -1,18 +1,18 @@
-# ✈️ Use Case 15: Search Optimization (Performance & Smart Search)
+# ✈️ Use Case 16: Business Rules and Validation
 
 ## 📌 Overview
 
-This use case focuses on improving the **search performance and user experience** in the airline reservation system.
-It introduces **caching, indexing, and smart search features** to provide faster and more relevant flight results.
+This use case defines the **core business rules and validation logic** for the airline reservation system.
+It ensures that all bookings, fares, and passenger details follow **real-world airline policies and constraints**.
 
 ---
 
 ## 🎯 Objectives
 
-* Improve search speed and efficiency
-* Reduce system load using caching
-* Provide intelligent search suggestions
-* Enhance user experience with smart features
+* Enforce booking eligibility rules
+* Validate passenger and travel information
+* Apply correct fare calculations
+* Ensure compliance with airline policies
 
 ---
 
@@ -20,41 +20,44 @@ It introduces **caching, indexing, and smart search features** to provide faster
 
 ---
 
-## 🔹 1. Caching and Performance
+## 🔹 1. Booking Business Rules
 
 ### 📌 Description
 
-Optimizes system performance by storing frequently accessed data.
+Validates booking requests before confirmation.
 
-### ⚙️ Implementations
+### ⚙️ Rules Implemented
 
-* Cache frequently searched routes
-* Cache popular flight combinations
-* Use indexing for fast airport lookup
-* Optimize database queries with proper indexes
-* Implement pagination for large search results
+* Booking allowed only **minimum 2 hours before departure**
+* Maximum **6 passengers per booking**
+* Infant must be accompanied by an adult
+* Validate passenger age categories:
 
-### 💡 Benefits
-
-* Faster response time
-* Reduced database load
-* Improved scalability
+  * Infant (0–2 years)
+  * Child (2–12 years)
+  * Adult (12+ years)
+* Validate travel document expiry
+* Validate passport and visa for international flights
 
 ---
 
-## 🔹 2. Smart Search Features
+## 🔹 2. Fare Rules and Calculation
 
 ### 📌 Description
 
-Enhances search experience with intelligent suggestions and flexibility.
+Handles complete fare calculation based on multiple factors.
 
-### ⚙️ Features
+### ⚙️ Fare Components
 
-* Auto-complete for airport search
-* Suggest nearby alternative airports
-* Recommend optimal travel dates (price calendar)
-* Show price trends for selected routes
-* Flexible date search (±3 days)
+* Base fare (flight price)
+* Dynamic pricing based on demand
+* GST (for domestic flights)
+* Airport charges
+* Fuel surcharge
+* Baggage charges (for excess weight)
+* Seat selection charges
+* Meal upgrade charges
+* Promotional discounts / coupons
 
 ---
 
@@ -62,60 +65,78 @@ Enhances search experience with intelligent suggestions and flexibility.
 
 ### 📁 service (Suggested)
 
-* `SearchService`
+* `ValidationService`
 
-  * Handles flight search logic
-* `CacheService`
+  * Handles all booking validations
+* `FareService`
 
-  * Manages caching of results
+  * Calculates total fare
 
-### 📁 util (Optional)
+### 📁 model (Suggested)
 
-* `SearchIndex`
+* `Passenger`
 
-  * Maintains indexed data for fast lookup
+  * Stores age and category
+* `FareDetails`
+
+  * Stores fare breakdown
 
 ---
 
 ## ⚙️ Workflow
 
-### Search Flow
+### Booking Validation Flow
 
-1. User enters source, destination, date
-2. System checks cache for existing results
-3. If cache hit → return results instantly
-4. If cache miss → query database
-5. Store result in cache
-6. Return paginated results
+1. User enters booking details
+2. System validates time (≥ 2 hours before departure)
+3. Check passenger count (≤ 6)
+4. Validate age categories
+5. Verify documents (passport, ID)
+6. Approve or reject booking
 
 ---
 
-### Smart Search Flow
+### Fare Calculation Flow
 
-1. User types airport name
-2. System provides auto-suggestions
-3. Suggest nearby airports if available
-4. Show flexible date options
-5. Display price trends
+1. Retrieve base fare
+2. Apply dynamic pricing
+3. Add taxes and surcharges
+4. Add optional services (seat, meal, baggage)
+5. Apply discounts/coupons
+6. Calculate final payable amount
+
+---
+
+## 📊 Example Fare Breakdown
+
+* Base Fare: ₹5000
+* GST (5%): ₹250
+* Airport Charges: ₹300
+* Fuel Surcharge: ₹400
+* Seat Selection: ₹200
+* Meal Upgrade: ₹150
+* Discount: -₹300
+
+**Total Fare: ₹6000**
 
 ---
 
 ## 📊 Advantages
 
-✔ Faster flight search
-✔ Better user experience
-✔ Reduced system load
-✔ Intelligent recommendations
-✔ Scalable architecture
+✔ Ensures valid and secure bookings
+✔ Accurate fare calculation
+✔ Real-world airline policy simulation
+✔ Prevents invalid or fraudulent bookings
+✔ Improves system reliability
 
 ---
 
 ## 🔒 Considerations
 
-* Cache invalidation strategy
-* Data freshness vs performance
-* Memory usage for caching
-* Efficient indexing techniques
+* Keep business rules configurable
+* Update tax and pricing rules regularly
+* Handle edge cases (infants, international travel)
+* Ensure accurate document validation
 
 ---
 
@@ -123,16 +144,18 @@ Enhances search experience with intelligent suggestions and flexibility.
 
 This use case integrates with:
 
-* UC8 → Flight Management (search data)
-* UC9 → Airport Management (auto-suggest & lookup)
-* UC10 → Priority Booking (optimized queue handling)
-* UC11 → Singleton Managers (shared cache instance)
-* UC13 → Analytics (search trends & insights)
+* UC1–UC5 → Booking validation and pricing
+* UC6 → Modification (recalculate fare)
+* UC7 → Cancellation (refund rules)
+* UC8 → Flight Management (dynamic pricing)
+* UC12 → Notifications (fare breakdown alerts)
+* UC13 → Analytics (revenue insights)
+* UC15 → Search Optimization (price trends)
 
 ---
 
 ## 🎉 Conclusion
 
-Search Optimization improves the airline system by delivering **fast, intelligent, and user-friendly search results**, making the application more efficient and competitive.
+Business Rules and Validation ensure that the airline system operates with **accuracy, compliance, and real-world constraints**, making it robust, reliable, and production-ready.
 
 ---
