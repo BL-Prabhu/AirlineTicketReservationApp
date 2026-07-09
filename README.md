@@ -1,129 +1,193 @@
-# ✈️ Flight Booking System – Exception Handling (Use Case 17)
+# ✈️ Flight Booking System – Integration (Use Case 18)
 
 ## 📌 Overview
 
-This module implements **Exception Handling** for the Flight Booking System.
+This module implements **Integration Capabilities** for the Flight Booking System.
 
-It ensures the system is **robust, reliable, and user-friendly** by handling both:
-
-* System-level failures
-* User input validation errors
-
-All exceptions are properly managed and logged for debugging and maintenance.
+It enables seamless communication with **external services, third-party providers, and APIs** to support real-world airline booking operations.
 
 ---
 
 ## 🎯 Objective
 
-* Prevent system crashes
-* Handle unexpected scenarios gracefully
-* Provide meaningful error messages to users
-* Improve debugging with proper logging
+* Enable real-time flight booking operations
+* Integrate external systems for payments, notifications, and data
+* Provide scalable and secure APIs
+* Ensure smooth communication between services
 
 ---
 
-## ⚙️ Exception Categories
+## ⚙️ Integration Categories
 
-### 🔹 17.1 System Exception Scenarios
+### 🔹 18.1 Third-Party Integrations
 
-These exceptions occur due to system or runtime issues.
+These integrations connect the system with external service providers.
 
-#### ✅ Handled Cases:
+#### ✅ Payment Gateway Integration
 
-* ❌ Flight Not Found Exception
-  Triggered when the requested flight does not exist.
+Supports secure online payments via:
 
-* ❌ Booking Not Found Exception
-  Triggered when booking ID is invalid or missing.
+* Razorpay
+* PayU
+* CCAvenue
 
-* ❌ Seat Unavailable Exception
-  Triggered when selected seats are already booked.
+**Features:**
 
-* ❌ Payment Failure Exception
-  Triggered when payment processing fails.
-
-* ❌ Network Timeout Exception
-  Triggered when API or external service does not respond in time.
-
-* ❌ Database Connection Failure
-  Triggered when the system cannot connect to the database.
-
-* 📝 Logging
-  All system exceptions are logged using logging framework (e.g., Log4j) for debugging.
+* Payment processing
+* Transaction validation
+* Failure handling and retries
 
 ---
 
-### 🔹 17.2 User Input Validation Exceptions
+#### ✅ SMS Gateway Integration
 
-These exceptions occur due to invalid or incorrect user inputs.
+Used to send real-time notifications to users.
 
-#### ✅ Handled Cases:
+**Use Cases:**
 
-* ⚠️ Invalid Date Format
-  Example: Wrong date format entered by user.
-
-* ⚠️ Invalid Passenger Count
-  Example: Negative or zero passengers.
-
-* ⚠️ Invalid Airport Code
-  Example: Unsupported or incorrect airport code.
-
-* ⚠️ Invalid Payment Details
-  Example: Incorrect card number or missing fields.
-
-* ⚠️ Expired Booking Session
-  Example: User takes too long and session expires.
+* Booking confirmation
+* Payment status updates
+* Flight alerts
 
 ---
 
-## 💬 User-Friendly Error Messages
+#### ✅ Email Service Integration
 
-The system provides clear and understandable messages:
+Sends email notifications to customers.
 
-| Scenario          | Message                                             |
-| ----------------- | --------------------------------------------------- |
-| Flight not found  | "Sorry, the selected flight is not available."      |
-| Booking not found | "Invalid booking ID. Please check and try again."   |
-| Seat unavailable  | "Selected seat is already booked."                  |
-| Payment failed    | "Payment failed. Please try again."                 |
-| Invalid input     | "Please enter valid details."                       |
-| Session expired   | "Your session has expired. Please restart booking." |
+**Use Cases:**
+
+* Booking confirmation emails
+* E-tickets
+* Cancellation updates
+
+---
+
+#### ✅ Airline GDS Integration (Global Distribution System)
+
+Connects with airline systems to fetch flight data.
+
+**Capabilities:**
+
+* Real-time flight availability
+* Fare details
+* Schedule updates
+
+---
+
+#### ✅ Airport Database Integration
+
+Integrates with airport systems for live operational data.
+
+**Capabilities:**
+
+* Flight status updates
+* Gate information
+* Delay/cancellation alerts
+
+---
+
+### 🔹 18.2 API Endpoints
+
+The system exposes REST APIs for external and internal communication.
+
+---
+
+#### 🌐 Flight Search API
+
+**Endpoint:** `/api/flights/search`
+**Method:** GET
+
+**Description:**
+Fetch available flights based on search criteria.
+
+---
+
+#### 🧾 Booking Creation API
+
+**Endpoint:** `/api/bookings`
+**Method:** POST
+
+**Description:**
+Create a new flight booking.
+
+---
+
+#### 🔍 Booking Retrieval API
+
+**Endpoint:** `/api/bookings/{id}`
+**Method:** GET
+
+**Description:**
+Retrieve booking details using booking ID.
+
+---
+
+#### ❌ Cancellation API
+
+**Endpoint:** `/api/bookings/{id}/cancel`
+**Method:** DELETE
+
+**Description:**
+Cancel an existing booking.
+
+---
+
+### 🔐 API Security & Management
+
+#### ✅ Authentication
+
+* Token-based authentication (JWT or API Key)
+* Secure access to all endpoints
+
+---
+
+#### ✅ Rate Limiting
+
+* Prevents API abuse
+* Limits number of requests per user/client
+* Ensures system stability under high load
 
 ---
 
 ## 🛠️ Implementation Approach
 
-* Custom Exception Classes created for each scenario
-* Centralized Exception Handling mechanism used
-* Logging enabled for all failures
-* Validation checks added before processing requests
+* RESTful API design principles
+* Integration using HTTP clients (e.g., RestTemplate / WebClient)
+* Third-party SDKs for payment gateways
+* Messaging services for SMS and Email
+* Secure API gateway configuration
 
 ---
 
 ## 📦 Technologies Used
 
-* Java (Core Java / OOP)
-* Exception Handling (try-catch, custom exceptions)
-* Logging Framework (Log4j or similar)
+* Java / Spring Boot
+* REST APIs (HTTP/JSON)
+* Payment Gateway SDKs
+* SMTP / Email Services
+* SMS Gateway APIs
+* JWT Authentication
 
 ---
 
 ## 🚀 Outcome
 
-* Improved system stability
-* Better user experience
-* Easier debugging and maintenance
-* Production-ready exception handling design
+* Seamless third-party integrations
+* Real-time booking and notification system
+* Secure and scalable API design
+* Production-ready integration architecture
 
 ---
 
 ## 📚 Learning
 
-* Importance of exception handling in real-world systems
-* Creating custom exceptions
-* Separating system errors vs user errors
-* Logging best practices
+* Third-party API integration
+* REST API design and development
+* Authentication and rate limiting
+* Real-world system connectivity
+* Handling external service dependencies
 
 ---
 
-✨ This module ensures the Flight Booking System is **safe, stable, and user-friendly even in failure scenarios**.
+✨ This module ensures the Flight Booking System is **fully connected, scalable, and ready for real-world integrations**.
