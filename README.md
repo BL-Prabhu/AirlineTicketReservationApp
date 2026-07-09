@@ -1,161 +1,129 @@
-# ✈️ Use Case 16: Business Rules and Validation
+# ✈️ Flight Booking System – Exception Handling (Use Case 17)
 
 ## 📌 Overview
 
-This use case defines the **core business rules and validation logic** for the airline reservation system.
-It ensures that all bookings, fares, and passenger details follow **real-world airline policies and constraints**.
+This module implements **Exception Handling** for the Flight Booking System.
+
+It ensures the system is **robust, reliable, and user-friendly** by handling both:
+
+* System-level failures
+* User input validation errors
+
+All exceptions are properly managed and logged for debugging and maintenance.
 
 ---
 
-## 🎯 Objectives
+## 🎯 Objective
 
-* Enforce booking eligibility rules
-* Validate passenger and travel information
-* Apply correct fare calculations
-* Ensure compliance with airline policies
-
----
-
-## 🚀 Features
+* Prevent system crashes
+* Handle unexpected scenarios gracefully
+* Provide meaningful error messages to users
+* Improve debugging with proper logging
 
 ---
 
-## 🔹 1. Booking Business Rules
+## ⚙️ Exception Categories
 
-### 📌 Description
+### 🔹 17.1 System Exception Scenarios
 
-Validates booking requests before confirmation.
+These exceptions occur due to system or runtime issues.
 
-### ⚙️ Rules Implemented
+#### ✅ Handled Cases:
 
-* Booking allowed only **minimum 2 hours before departure**
-* Maximum **6 passengers per booking**
-* Infant must be accompanied by an adult
-* Validate passenger age categories:
+* ❌ Flight Not Found Exception
+  Triggered when the requested flight does not exist.
 
-  * Infant (0–2 years)
-  * Child (2–12 years)
-  * Adult (12+ years)
-* Validate travel document expiry
-* Validate passport and visa for international flights
+* ❌ Booking Not Found Exception
+  Triggered when booking ID is invalid or missing.
 
----
+* ❌ Seat Unavailable Exception
+  Triggered when selected seats are already booked.
 
-## 🔹 2. Fare Rules and Calculation
+* ❌ Payment Failure Exception
+  Triggered when payment processing fails.
 
-### 📌 Description
+* ❌ Network Timeout Exception
+  Triggered when API or external service does not respond in time.
 
-Handles complete fare calculation based on multiple factors.
+* ❌ Database Connection Failure
+  Triggered when the system cannot connect to the database.
 
-### ⚙️ Fare Components
-
-* Base fare (flight price)
-* Dynamic pricing based on demand
-* GST (for domestic flights)
-* Airport charges
-* Fuel surcharge
-* Baggage charges (for excess weight)
-* Seat selection charges
-* Meal upgrade charges
-* Promotional discounts / coupons
+* 📝 Logging
+  All system exceptions are logged using logging framework (e.g., Log4j) for debugging.
 
 ---
 
-## 🧠 System Design
+### 🔹 17.2 User Input Validation Exceptions
 
-### 📁 service (Suggested)
+These exceptions occur due to invalid or incorrect user inputs.
 
-* `ValidationService`
+#### ✅ Handled Cases:
 
-  * Handles all booking validations
-* `FareService`
+* ⚠️ Invalid Date Format
+  Example: Wrong date format entered by user.
 
-  * Calculates total fare
+* ⚠️ Invalid Passenger Count
+  Example: Negative or zero passengers.
 
-### 📁 model (Suggested)
+* ⚠️ Invalid Airport Code
+  Example: Unsupported or incorrect airport code.
 
-* `Passenger`
+* ⚠️ Invalid Payment Details
+  Example: Incorrect card number or missing fields.
 
-  * Stores age and category
-* `FareDetails`
-
-  * Stores fare breakdown
-
----
-
-## ⚙️ Workflow
-
-### Booking Validation Flow
-
-1. User enters booking details
-2. System validates time (≥ 2 hours before departure)
-3. Check passenger count (≤ 6)
-4. Validate age categories
-5. Verify documents (passport, ID)
-6. Approve or reject booking
+* ⚠️ Expired Booking Session
+  Example: User takes too long and session expires.
 
 ---
 
-### Fare Calculation Flow
+## 💬 User-Friendly Error Messages
 
-1. Retrieve base fare
-2. Apply dynamic pricing
-3. Add taxes and surcharges
-4. Add optional services (seat, meal, baggage)
-5. Apply discounts/coupons
-6. Calculate final payable amount
+The system provides clear and understandable messages:
 
----
-
-## 📊 Example Fare Breakdown
-
-* Base Fare: ₹5000
-* GST (5%): ₹250
-* Airport Charges: ₹300
-* Fuel Surcharge: ₹400
-* Seat Selection: ₹200
-* Meal Upgrade: ₹150
-* Discount: -₹300
-
-**Total Fare: ₹6000**
+| Scenario          | Message                                             |
+| ----------------- | --------------------------------------------------- |
+| Flight not found  | "Sorry, the selected flight is not available."      |
+| Booking not found | "Invalid booking ID. Please check and try again."   |
+| Seat unavailable  | "Selected seat is already booked."                  |
+| Payment failed    | "Payment failed. Please try again."                 |
+| Invalid input     | "Please enter valid details."                       |
+| Session expired   | "Your session has expired. Please restart booking." |
 
 ---
 
-## 📊 Advantages
+## 🛠️ Implementation Approach
 
-✔ Ensures valid and secure bookings
-✔ Accurate fare calculation
-✔ Real-world airline policy simulation
-✔ Prevents invalid or fraudulent bookings
-✔ Improves system reliability
-
----
-
-## 🔒 Considerations
-
-* Keep business rules configurable
-* Update tax and pricing rules regularly
-* Handle edge cases (infants, international travel)
-* Ensure accurate document validation
+* Custom Exception Classes created for each scenario
+* Centralized Exception Handling mechanism used
+* Logging enabled for all failures
+* Validation checks added before processing requests
 
 ---
 
-## 🔥 Integration
+## 📦 Technologies Used
 
-This use case integrates with:
-
-* UC1–UC5 → Booking validation and pricing
-* UC6 → Modification (recalculate fare)
-* UC7 → Cancellation (refund rules)
-* UC8 → Flight Management (dynamic pricing)
-* UC12 → Notifications (fare breakdown alerts)
-* UC13 → Analytics (revenue insights)
-* UC15 → Search Optimization (price trends)
+* Java (Core Java / OOP)
+* Exception Handling (try-catch, custom exceptions)
+* Logging Framework (Log4j or similar)
 
 ---
 
-## 🎉 Conclusion
+## 🚀 Outcome
 
-Business Rules and Validation ensure that the airline system operates with **accuracy, compliance, and real-world constraints**, making it robust, reliable, and production-ready.
+* Improved system stability
+* Better user experience
+* Easier debugging and maintenance
+* Production-ready exception handling design
 
 ---
+
+## 📚 Learning
+
+* Importance of exception handling in real-world systems
+* Creating custom exceptions
+* Separating system errors vs user errors
+* Logging best practices
+
+---
+
+✨ This module ensures the Flight Booking System is **safe, stable, and user-friendly even in failure scenarios**.
